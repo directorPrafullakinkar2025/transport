@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home4/shreeinfotechsof/public_html/transport/
+    - /bin/cp -Rf * $DEPLOYPATH
