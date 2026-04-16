@@ -1,0 +1,435 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Mar 12, 2026 at 08:29 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.0.30
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+--
+-- Database: `transport_yavatmal`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `city_master`
+--
+
+CREATE TABLE `city_master` (
+  `city_id` int(11) NOT NULL,
+  `state_name` text NOT NULL,
+  `city_name` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `city_master`
+--
+
+INSERT INTO `city_master` (`city_id`, `state_name`, `city_name`) VALUES
+(1, 'maharashtra', 'yavatmal'),
+(2, 'maharashtra', 'yavatmal'),
+(3, 'maharashtra', 'wardha'),
+(4, 'maharashtra', 'amravati'),
+(5, 'maharashtra', 'nagpiur'),
+(6, 'maharashtra', 'pune'),
+(7, 'maharashtra', 'buldhana'),
+(8, 'maharashtra', 'jalgaon'),
+(9, 'maharashtra', 'bhandara');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `freight_gst_details`
+--
+
+CREATE TABLE `freight_gst_details` (
+  `freight_id` int(11) NOT NULL,
+  `lr_id` int(11) NOT NULL,
+  `freight` decimal(12,2) DEFAULT 0.00,
+  `hamali` decimal(12,2) DEFAULT 0.00,
+  `pre_bhadha` decimal(12,2) DEFAULT 0.00,
+  `bilty_charge` decimal(12,2) DEFAULT 0.00,
+  `collection_charges` decimal(12,2) DEFAULT 0.00,
+  `cpc` decimal(12,2) DEFAULT 0.00,
+  `other_charge` decimal(12,2) DEFAULT 0.00,
+  `total` decimal(12,2) DEFAULT 0.00,
+  `apply_gst` enum('Yes','No') DEFAULT 'No',
+  `cgst` decimal(12,2) DEFAULT 0.00,
+  `sgst` decimal(12,2) DEFAULT 0.00,
+  `igst` decimal(12,2) DEFAULT 0.00,
+  `advance_amount` decimal(12,2) DEFAULT 0.00,
+  `grand_total` decimal(12,2) DEFAULT 0.00,
+  `url_name` varchar(150) DEFAULT NULL,
+  `print_type` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `freight_gst_details`
+--
+
+INSERT INTO `freight_gst_details` (`freight_id`, `lr_id`, `freight`, `hamali`, `pre_bhadha`, `bilty_charge`, `collection_charges`, `cpc`, `other_charge`, `total`, `apply_gst`, `cgst`, `sgst`, `igst`, `advance_amount`, `grand_total`, `url_name`, `print_type`, `created_at`) VALUES
+(5, 2, 4.00, 4.00, 4.00, 4.00, 4.00, 4.00, 4.00, 4.00, 'No', 4.00, 4.00, 4.00, 4.00, 4.00, '4', 'A4', '2026-03-10 12:26:17'),
+(6, 3, 4.00, 4.00, 4.00, 4.00, 4.00, 4.00, 4.00, 4.00, 'No', 4.00, 4.00, 4.00, 4.00, 4.00, '4', 'A4', '2026-03-10 12:26:17'),
+(7, 4, 1111.00, 1111.00, 111.00, 111.00, 111.00, 111.00, 111.00, 111.00, 'Yes', 111.00, 111.00, 111.00, 111.00, 111.00, '111', 'A4', '2026-03-10 12:28:43'),
+(8, 5, 11.00, 3.00, 222.00, 222.00, 222.00, 222.00, 222.00, 111.00, 'Yes', 111.00, 111.00, 111.00, 22222.00, 2222.00, '222', 'A4', '2026-03-10 12:59:46'),
+(9, 6, 1.00, 1111.00, 3.00, 222.00, 222.00, 222.00, 222.00, 111.00, 'Yes', 111.00, 111.00, 111.00, 22222.00, 2222.00, '222', 'A4', '2026-03-10 13:02:26'),
+(1900060318, 1, 2.00, 222.00, 222.00, 0.00, 222.00, 222.00, 222.00, 222.00, 'Yes', 222.00, 2222.00, 2222.00, 22222.00, 2222.00, '222', 'A4', '2026-03-10 12:25:40');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `group_master`
+--
+
+CREATE TABLE `group_master` (
+  `group_id` int(11) NOT NULL,
+  `group_name` varchar(100) NOT NULL,
+  `product_name` varchar(155) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `group_master`
+--
+
+INSERT INTO `group_master` (`group_id`, `group_name`, `product_name`) VALUES
+(1, 'kinkar', ''),
+(2, 'kinkar123', ''),
+(7, 'xyz', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `lr_entry`
+--
+
+CREATE TABLE `lr_entry` (
+  `id` int(11) NOT NULL,
+  `lr_id` bigint(20) NOT NULL,
+  `lr_date` date DEFAULT NULL,
+  `ref_lr_no` varchar(50) DEFAULT NULL,
+  `pm` varchar(50) DEFAULT NULL,
+  `from_city` varchar(150) DEFAULT NULL,
+  `to_city` varchar(150) DEFAULT NULL,
+  `consignor` varchar(150) DEFAULT NULL,
+  `consignee` varchar(150) DEFAULT NULL,
+  `cnsnr_address` varchar(255) DEFAULT NULL,
+  `cnsgne_address` varchar(255) DEFAULT NULL,
+  `cnsnr_gstin` varchar(20) DEFAULT NULL,
+  `cnsgne_gstin` varchar(20) DEFAULT NULL,
+  `billing_branch` varchar(150) DEFAULT NULL,
+  `billed_to` varchar(150) DEFAULT NULL,
+  `vehicle_no` varchar(30) DEFAULT NULL,
+  `owner_name` varchar(150) DEFAULT NULL,
+  `transport_mode` varchar(50) DEFAULT 'By Road',
+  `transport_remark` text DEFAULT NULL,
+  `remarks` text DEFAULT NULL,
+  `delivery_at` varchar(150) DEFAULT NULL,
+  `company_name` varchar(150) DEFAULT NULL,
+  `policy_no` varchar(100) DEFAULT NULL,
+  `insurance_amount` decimal(12,2) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `lr_entry`
+--
+
+INSERT INTO `lr_entry` (`id`, `lr_id`, `lr_date`, `ref_lr_no`, `pm`, `from_city`, `to_city`, `consignor`, `consignee`, `cnsnr_address`, `cnsgne_address`, `cnsnr_gstin`, `cnsgne_gstin`, `billing_branch`, `billed_to`, `vehicle_no`, `owner_name`, `transport_mode`, `transport_remark`, `remarks`, `delivery_at`, `company_name`, `policy_no`, `insurance_amount`, `created_at`) VALUES
+(7, 1900060318, '2026-03-20', '1111', '1111', '7', '1', '13', '12', 'DAPAKI ROAD', 'peshwe plot', '11', '11', '1111', '12', '7', '11111', 'By Air', '11111', '111', '1111', 'SHREEINFOTECH SOFTWARE DEVELOPMENT PRIVATE LIMITED', '111', 111.00, '2026-03-12 07:13:48');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `party_invoice_details`
+--
+
+CREATE TABLE `party_invoice_details` (
+  `invoice_id` int(11) NOT NULL,
+  `invoice_no` varchar(50) DEFAULT NULL,
+  `invoice_date` date DEFAULT NULL,
+  `value_of_goods` decimal(10,2) DEFAULT NULL,
+  `eway_bill_no` varchar(50) DEFAULT NULL,
+  `ewb_exp_date` date DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `party_invoice_details`
+--
+
+INSERT INTO `party_invoice_details` (`invoice_id`, `invoice_no`, `invoice_date`, `value_of_goods`, `eway_bill_no`, `ewb_exp_date`, `created_at`) VALUES
+(30, '', '0000-00-00', 0.00, '', '0000-00-00', '2026-03-08 23:07:50'),
+(31, '7878', '2026-03-08', 56544.00, '564', '2026-03-18', '2026-03-08 23:08:06'),
+(32, '7878', '2026-03-08', 56544.00, '564', '2026-03-18', '2026-03-08 23:08:06'),
+(33, '7878', '0000-00-00', 0.00, '', '0000-00-00', '2026-03-09 22:28:17'),
+(34, '', '2026-03-05', 56544.00, '564', '2026-03-18', '2026-03-09 22:28:29'),
+(35, '', '0000-00-00', 0.00, '', '0000-00-00', '2026-03-09 22:29:09'),
+(36, '7878', '2026-03-04', 56544.00, '564', '2026-03-26', '2026-03-09 22:33:44'),
+(37, '7878', '2026-03-04', 56544.00, '564', '2026-03-26', '2026-03-09 22:33:44'),
+(38, '7', '2026-03-26', 56544.00, '564', '2026-03-27', '2026-03-09 22:33:57'),
+(39, '7', '2026-03-26', 56544.00, '564', '2026-03-27', '2026-03-09 22:33:57');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `party_master`
+--
+
+CREATE TABLE `party_master` (
+  `party_id` int(11) NOT NULL,
+  `ledger_group` text NOT NULL,
+  `party_name` text NOT NULL,
+  `address_one` text NOT NULL,
+  `address_two` text NOT NULL,
+  `state_name` text NOT NULL,
+  `city_name` text NOT NULL,
+  `mobile_number` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `party_master`
+--
+
+INSERT INTO `party_master` (`party_id`, `ledger_group`, `party_name`, `address_one`, `address_two`, `state_name`, `city_name`, `mobile_number`) VALUES
+(12, 'Bank', 'prafulla', 'Peshwe Plot', 'DAPAKI ROAD', 'Maharashtra', 'yavatmal', '07057445099'),
+(13, 'Staff', 'prafulla123', 'Peshwe Plot', 'DAPAKI ROAD', 'Maharashtra', 'jalgaon', '07057445099');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_details`
+--
+
+CREATE TABLE `product_details` (
+  `product_id` int(11) NOT NULL,
+  `lr_id` int(11) NOT NULL,
+  `product_name` varchar(150) DEFAULT NULL,
+  `group_name` varchar(150) NOT NULL,
+  `description` text DEFAULT NULL,
+  `qty` int(11) DEFAULT NULL,
+  `actual_wt` decimal(10,2) DEFAULT NULL,
+  `charge_wt` decimal(10,2) DEFAULT NULL,
+  `unit` varchar(50) DEFAULT NULL,
+  `rate` decimal(10,2) DEFAULT NULL,
+  `rate_type` varchar(50) DEFAULT NULL,
+  `amount` decimal(12,2) DEFAULT NULL,
+  `length` decimal(10,2) DEFAULT NULL,
+  `width` decimal(10,2) DEFAULT NULL,
+  `height` decimal(10,2) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_master`
+--
+
+CREATE TABLE `product_master` (
+  `id` int(11) NOT NULL,
+  `group_name` varchar(155) DEFAULT NULL,
+  `product_name` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `product_master`
+--
+
+INSERT INTO `product_master` (`id`, `group_name`, `product_name`) VALUES
+(1, 'General Goods', 'xcsdf'),
+(2, '', ''),
+(3, '', ''),
+(4, '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `unit_master`
+--
+
+CREATE TABLE `unit_master` (
+  `unit_id` int(11) NOT NULL,
+  `unit_name` varchar(155) NOT NULL,
+  `unit_value` varchar(155) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `unit_master`
+--
+
+INSERT INTO `unit_master` (`unit_id`, `unit_name`, `unit_value`) VALUES
+(1, 'cotton bel', '30000');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vehicle_master`
+--
+
+CREATE TABLE `vehicle_master` (
+  `vehicle_id` int(11) NOT NULL,
+  `owner_broker_name` text NOT NULL,
+  `vehicle_number` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `vehicle_master`
+--
+
+INSERT INTO `vehicle_master` (`vehicle_id`, `owner_broker_name`, `vehicle_number`) VALUES
+(1, '', '68769'),
+(3, 'prafulla', '68769'),
+(4, 'prafulla123', 'mh29 7676868'),
+(5, 'prafulla123', 'mh29 7676868'),
+(6, 'prafulla123', 'mh29 7676868'),
+(7, 'prafulla123', 'mh29 209878'),
+(8, 'prafulla123', 'mh29 209878'),
+(9, 'prafulla123', 'mh29 907890');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `city_master`
+--
+ALTER TABLE `city_master`
+  ADD PRIMARY KEY (`city_id`);
+
+--
+-- Indexes for table `freight_gst_details`
+--
+ALTER TABLE `freight_gst_details`
+  ADD PRIMARY KEY (`freight_id`),
+  ADD KEY `lr_id` (`lr_id`);
+
+--
+-- Indexes for table `group_master`
+--
+ALTER TABLE `group_master`
+  ADD PRIMARY KEY (`group_id`);
+
+--
+-- Indexes for table `lr_entry`
+--
+ALTER TABLE `lr_entry`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `party_invoice_details`
+--
+ALTER TABLE `party_invoice_details`
+  ADD PRIMARY KEY (`invoice_id`);
+
+--
+-- Indexes for table `party_master`
+--
+ALTER TABLE `party_master`
+  ADD PRIMARY KEY (`party_id`);
+
+--
+-- Indexes for table `product_details`
+--
+ALTER TABLE `product_details`
+  ADD PRIMARY KEY (`product_id`),
+  ADD KEY `lr_id` (`lr_id`);
+
+--
+-- Indexes for table `product_master`
+--
+ALTER TABLE `product_master`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `unit_master`
+--
+ALTER TABLE `unit_master`
+  ADD PRIMARY KEY (`unit_id`);
+
+--
+-- Indexes for table `vehicle_master`
+--
+ALTER TABLE `vehicle_master`
+  ADD PRIMARY KEY (`vehicle_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `city_master`
+--
+ALTER TABLE `city_master`
+  MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `freight_gst_details`
+--
+ALTER TABLE `freight_gst_details`
+  MODIFY `freight_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1900060319;
+
+--
+-- AUTO_INCREMENT for table `group_master`
+--
+ALTER TABLE `group_master`
+  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `lr_entry`
+--
+ALTER TABLE `lr_entry`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `party_invoice_details`
+--
+ALTER TABLE `party_invoice_details`
+  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+
+--
+-- AUTO_INCREMENT for table `party_master`
+--
+ALTER TABLE `party_master`
+  MODIFY `party_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `product_details`
+--
+ALTER TABLE `product_details`
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `product_master`
+--
+ALTER TABLE `product_master`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `unit_master`
+--
+ALTER TABLE `unit_master`
+  MODIFY `unit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `vehicle_master`
+--
+ALTER TABLE `vehicle_master`
+  MODIFY `vehicle_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `product_details`
+--
+ALTER TABLE `product_details`
+  ADD CONSTRAINT `product_details_ibfk_1` FOREIGN KEY (`lr_id`) REFERENCES `lr_entry` (`id`) ON DELETE CASCADE;
+COMMIT;
