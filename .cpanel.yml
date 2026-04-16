@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/example/public_html/transport/
-    - /bin/cp index.php $DEPLOYPATH
+    - export DEPLOYPATH=/home4/shreeinfotechsof/public_html/transport/
+    - /bin/cp -Rf * $DEPLOYPATH
