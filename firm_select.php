@@ -1,8 +1,7 @@
 <?php
 
 session_start();
-
-// अगर login नहीं है तो redirect
+require_once 'db.php';
 if (!isset($_SESSION['logged_in'])) {
     header("Location: login.php");
     exit();
@@ -13,7 +12,7 @@ header("Cache-Control: no-cache, no-store, must-revalidate");
 header("Pragma: no-cache");
 header("Expires: 0");
 
-$conn = new mysqli("localhost", "root", "", "updated_transport_project");
+
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
