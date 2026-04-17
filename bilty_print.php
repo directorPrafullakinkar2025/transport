@@ -186,12 +186,12 @@ $copies = ['CONSIGNOR COPY', 'CONSIGNEE COPY', 'DRIVER COPY', 'OFFICE COPY'];
 
 foreach ($copies as $copyTitle) {
 ?>
-    <div class="print-container">
+    <!-- <div class="print-container">
         <div class="copy-label"><?php echo $copyTitle; ?></div>
         
         <table class="bilty-table">
             </table>
-    </div>
+    </div> -->
     
     <div class="page-break"></div>
 
