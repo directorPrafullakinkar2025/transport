@@ -1,12 +1,30 @@
+
 <?php
 session_start();
 require_once "db.php";
+// Get LR ID from URL
+$lr_id = $_GET['lr_id'] ?? '';
 
-/* ================= LR ID ================= */
-$lr_id = 'LR-2026-0003'; 
+// Fetch your data from the database using $lr_id here
+// $row = mysqli_query(...)
+
+
+// 1. Get the ID and Type from the URL
+$lr_id = isset($_GET['lr_id']) ? $_GET['lr_id'] : '';
+$type  = isset($_GET['type']) ? $_GET['type'] : 'consignor';
+
+// 2. Convert "driver" to "DRIVER COPY" for the display
+$headerTitle = strtoupper($type) . " COPY";
+
+// 3. Your existing Database Query to fetch LR details
+// $result = mysqli_query($conn, "SELECT * FROM lr_entry WHERE lr_id = '$lr_id'");
+// $data = mysqli_fetch_assoc($result);
+
+// /* ================= LR ID ================= */
+$lr_id = $_GET['lr_id'] ?? '';
 
 if (!$lr_id) {
-    die("Error: No LR selected for printing.");
+    die("Error: No LR selected.");
 }
 
 /* ================= HEADER + FIRM DATA ================= */
@@ -26,7 +44,7 @@ $sqlHeader = "SELECT
 
     f.freight, f.hamali, f.pre_bhadha, f.bilty_charge, 
     f.collection_charges, f.cpc, f.other_charge, 
-    f.grand_total, f.lot_no, f.pr_no, f.pm_no, 
+    f.grand_total, 
     f.freight_type, f.booking_type, f.delivery_type, f.remarks,
 
     -- All Firm Table Fields
@@ -80,7 +98,11 @@ $sqlProducts = "SELECT
     length,
     width,
     height,
-    created_at
+    created_at,
+    lot_no,
+    pr_no,
+    pm_no,
+    agent_name
 FROM product_details 
 WHERE lr_id = '$lr_id'";
 
@@ -159,6 +181,19 @@ while ($row = mysqli_fetch_assoc($resInvoice)) {
     </style>
 </head>
 <body>
+<?php
+$copies = ['CONSIGNOR COPY', 'CONSIGNEE COPY', 'DRIVER COPY', 'OFFICE COPY'];
+
+foreach ($copies as $copyTitle) {
+?>
+    <div class="print-container">
+        <div class="copy-label"><?php echo $copyTitle; ?></div>
+        
+        <table class="bilty-table">
+            </table>
+    </div>
+    
+    <div class="page-break"></div>
 
 <!-- ================= FIRM HEADER ================= -->
 
@@ -197,49 +232,69 @@ while ($row = mysqli_fetch_assoc($resInvoice)) {
         <div style="display:flex; gap:6px;">
 
             <!-- Left Box -->
-            <div style="width:50%;height:230px;border:1px solid #000;">
-                <p style="font-weight:bold;font-size:15px;text-align:center;">CAUTION:</p>
-                <p style="line-height:1.5;">
-                    The Consingment will not be detained delivered re-routed or re-booked without consignee bank's written permission will be delivery the destination.
-                </p>
-                <hr>
+           <div style="width:50%; height:150px; border:1px solid #000; padding:6px; box-sizing:border-box; font-family:Arial; line-height:1.2;">
 
-                <p style="font-weight:bold;font-size:15px;text-align:center;">CONSIGNMENT NOTE</p>
+    <!-- CAUTION -->
+    <div style="font-weight:bold; font-size:14px; text-align:center;">
+        CAUTION
+    </div>
 
-                <p style="font-weight:bold;font-size:15px;">
-                    <span style="margin-left:120px;"> LR No: <span style="margin-left:10px;"><?php echo $data['lr_id']; ?></span></span>
-                </p>
+    <div style="font-size:12px; text-align:justify; margin-top:2px;">
+        The consignment will not be detained, delivered, re-routed, or re-booked without the consignee bank's written permission and will be delivered only at the destination.
+    </div>
 
-                <p style="font-weight:bold;font-size:15px;">
-                    <span style="margin-left:120px;">Date: <span style="margin-left:10px;"><?php echo $data['lr_date']; ?></span></span>
-                </p>
-            </div>
+    <hr style="margin:4px 0;">
+
+    <!-- CONSIGNMENT NOTE -->
+    <div style="font-weight:bold; font-size:14px; text-align:center;">
+        CONSIGNMENT NOTE
+    </div>
+
+    <!-- LR DETAILS -->
+    <!-- LR DETAILS CENTER -->
+<div style="text-align:center; font-weight:bold; font-size:13px; margin-top:6px; line-height:1.4;">
+    
+    <div>
+        LR No: <?php echo $data['lr_id']; ?>
+    </div>
+
+    <div style="margin-top:3px;">
+        Date: <?php echo $data['lr_date']; ?>
+    </div>
+
+</div>
+
+</div>
 
             <!-- CONSIGNOR COPY -->
-            <div style="width:50%;height:230px;border:1px solid #000;">
+            <div style="width:50%;height:150px;border:1px solid #000;">
                 <div style="text-align:center;">
-
-                    <div style="font-weight:bold;font-size:18px;">CONSIGNOR COPY</div>
+<!-- change heading on printing -->
+                    <div class="header-container">
+    <div class="copy-indicator">
+        <?php echo $copyTitle; ?>
+    </div>
+</div>
                     <hr>
 
-                    <div style="font-weight:bold;font-size:18px;">AT OWNER'S RISK</div>
+                    <div style="font-weight:bold;font-size:11px;">AT OWNER'S RISK</div>
                     <hr>
 
-                    <div style="font-weight:bold;font-size:18px;">INSURANCE</div>
+                    <div style="font-weight:bold;font-size:11px;">INSURANCE</div>
                     <hr>
 
-                    <p style="line-height:1.5;">
-                        The Consigner has Stated that:<br>
-                        He has not insured Consignment OR <br>
+                    <span style="line-height:1.0;">
+                        The Consigner has Stated that:
+                        He has not insured Consignment OR 
                         He has insured Consignment
-                    </p>
+                    </span>
 
                     <hr>
 
                     <div>
-                        <div>Company :</div>
+                        <div style="text-align:left;">Company :</div>
 
-                        <div style="display:flex; justify-content:space-between; width:300px; margin:0 auto;">
+                        <div style="display:flex; justify-content:space-between;">
                             <span>Policy No. :</span>
                             <span>
                                 Amount: ₹ <?php echo number_format($total_amount, 2); ?>
@@ -252,43 +307,56 @@ while ($row = mysqli_fetch_assoc($resInvoice)) {
         </div>
 
         <!-- ===== ✅ YOUR NEW CODE (UNCHANGED) ===== -->
-        <div style="display: flex; width: 100%; font-family: Arial, sans-serif; border-top: none;">
+<div style="display: flex; width: 100%; font-family: Arial, sans-serif; border-top: none;">
 
-            <div style="flex: 2; border: 1px solid black; border-top: none; padding: 10px; min-height: 150px; box-sizing: border-box;">
-                <span style="font-weight:bold; font-size:13px; text-decoration: underline;">Consignor's Name And Address :</span>
-                <hr>                
-                <p style="font-weight:bold; font-size: 13px; margin-top: 5px; line-height: 1.0;">
-                    <?php echo $data['consignor_name']; ?><br>
-                <p style="font-size: 13px; margin-top: 5px; line-height: 1.4;"></p>
-                    <?php echo $data['consignor_addr']; ?><span style="font-size:13px;margin-left:65%;">GST No: <?php echo $data['gst_no']; ?></span>
-                </p>
-                <hr>
-                <span style="font-weight:bold; font-size:13px; text-decoration: underline;">Consignee's Name And Address :</span>
-                <hr>
-                <p style="font-weight:bold; font-size: 13px; margin-top: 5px; line-height: 1.0;">
-                    <?php echo $data['consignee_name']; ?><br>
-                 <p style="font-size: 13px; margin-top: 5px; line-height: 1.4;"></p>  
-                    <?php echo $data['consignee_addr']; ?><span style="font-size:13px;margin-left:65%;">GST No: <?php echo $data['gst_no']; ?></span>
-                </p>
-                
-            </div>
+    <div style="flex: 2; border: 1px solid black; border-top: none; padding: 8px; min-height: 150px; box-sizing: border-box; line-height:1.2;">
+
+        <div style="font-weight:bold; font-size:13px;">Consignor's Name And Address :</div>
+        <hr style="margin:3px 0;">
+
+        <div style="font-weight:bold; font-size:13px; margin-top:3px;">
+            <?php echo $data['consignor_name']; ?>
         </div>
+
+        <div style="font-size:13px; margin-top:2px;">
+            <?php echo $data['consignor_addr']; ?>
+            <span style="float:right;">GST No: <?php echo $data['gst_no']; ?></span>
+        </div>
+
+        <hr style="margin:4px 0;">
+
+        <div style="font-weight:bold; font-size:13px;">Consignee's Name And Address :</div>
+        <hr style="margin:3px 0;">
+
+        <div style="font-weight:bold; font-size:13px; margin-top:3px;">
+            <?php echo $data['consignee_name']; ?>
+        </div>
+
+        <div style="font-size:13px; margin-top:2px;">
+            <?php echo $data['consignee_addr']; ?>
+            <span style="float:right;">GST No: <?php echo $data['gst_no']; ?></span>
+        </div>
+
+    </div>
+</div>
 
     </div>
 
     <!-- ================= RIGHT SIDE (UNCHANGED) ================= -->
-    <div style="width:33%; height:350px; font-family: Arial, sans-serif;">
+    <div style="width:33%; height:300px; font-family: Arial, sans-serif;">
 
-        <div style="width:100%;box-sizing:border-box; padding:5px;line-height:1.5;border:1px solid #000;">
+        <div style="width:100%;box-sizing:border-box; border:1px solid #000;">
 
             <span style="font-weight:bold; font-size:12px;">GST No: <?php echo $data['gst_no']; ?></span><br>
             <span style="font-weight:bold; font-size:12px;">PAN No: <?php echo $data['pan_no']; ?></span>
 
             <hr>
 
-            <p style="font-weight:bold; font-size:13px; text-align:center;">NOTICE</p>
+          <span style="display:block; font-weight:bold; font-size:13px; text-align:center;">
+    NOTICE
+</span>
 
-            <span style="font-weight:bold; font-size:11px; text-align: justify;">
+            <span style="font-weight:bold; font-size:11px; text-align: justify;line-height:1.2;">
                 The consignment covered by this set Special Lorry Receipt Fromshall be stored at the 
                 Destinnstiounser the control of the Transport Operator and shall be Delivered to ro of the 
                 Consignee Bank's whose Name is mentioned in the Lorry Receipt if it will Under no Circumstances be Delivered To any one 
@@ -297,38 +365,41 @@ while ($row = mysqli_fetch_assoc($resInvoice)) {
 
             <hr>
 
-            <span style="font-weight:bold; font-size:15px;">
-                Vehicle No. : <?php echo $data['vehicle_number']; ?>
-            </span>
-            <br>
+<div style="font-size:12px; font-weight:bold; line-height:1.2;">
 
-            <span style="font-weight:bold; font-size:15px;">
-                Vehicle Type :
-            </span>
+    <div>
+        Vehicle No. : <?php echo $data['vehicle_number']; ?>
+    </div>
 
-            <hr>
+    <div>
+        Vehicle Type :
+    </div>
 
-            <span style="font-weight:bold; font-size:15px;">
-                Transport Mode: <?php echo $data['transport_mode']; ?>
-            </span>
+    <hr>
 
-            <hr>
+    <div >
+        Transport Mode: <?php echo $data['transport_mode']; ?>
+    </div>
 
-            <span style="font-weight:bold; font-size:15px;">
-                From: <?php echo $data['from_city']; ?>
-            </span>
+    <hr>
 
-            <hr>
+    <div >
+        From: <?php echo $data['from_city']; ?>
+    </div>
 
-            <span style="font-weight:bold; font-size:15px;">
-                To: <?php echo $data['to_city']; ?>
-            </span>
+    <hr>
 
-            <hr>
+    <div >
+        To: <?php echo $data['to_city']; ?>
+    </div>
 
-            <span style="font-weight:bold; font-size:15px;">
-                LR Type: <?php echo $data['booking_type']; ?>
-            </span>
+    <hr>
+
+    <div>
+        LR Type: <?php echo $data['booking_type']; ?>
+    </div>
+
+</div>
 
         </div>
     </div>
@@ -339,27 +410,34 @@ while ($row = mysqli_fetch_assoc($resInvoice)) {
 </div>
 
 <!-- ================= LAST ROW (8 COLUMNS) ================= -->
-<div style="display:flex; width:100%; border:1px solid #000;  font-family:Arial; text-align:center;">
-
-    <div style="flex:1; border-right:1px solid #000; padding:8px;">PAKAGES</div>
-    <div style="flex:2; border-right:1px solid #000; padding:8px;">DESCRIPTION (Said To Coatation)</div>
+<div style="display:flex; width:100%; border:1px solid #000; border-bottom:none; font-family:Arial; text-align:center; font-weight:bold; background-color:#f2f2f2;">
+    <div style="flex:0.8; border-right:1px solid #000; padding:8px;">PACKAGES</div>
+    <div style="flex:2; border-right:1px solid #000; padding:8px;">DESCRIPTION</div>
+    <div style="flex:1; border-right:1px solid #000; padding:8px;">LOT NO</div>
+    <div style="flex:1; border-right:1px solid #000; padding:8px;">PR NO</div>
+    <div style="flex:1; border-right:1px solid #000; padding:8px;">PM NO</div>
     <div style="flex:1; border-right:1px solid #000; padding:8px;">ACTUAL WT</div>
     <div style="flex:1; border-right:1px solid #000; padding:8px;">CHARGED WT</div>
     <div style="flex:1; border-right:1px solid #000; padding:8px;">UNIT</div>
     <div style="flex:1; border-right:1px solid #000; padding:8px;">RATE</div>
-    <div style="flex:1; border-right:1px solid #000; padding:8px;">FREIGHT</div>
+    <div style="flex:1; padding:8px;">FREIGHT</div>
 </div>
-<div style="display:flex; width:100%; border:1px solid #000;  font-family:Arial; text-align:center;">
-    <?php foreach ($products as $p) { ?>
-   <div style="flex:1; border-right:1px solid #000; padding:8px;"><?php echo $p['qty']; ?></div>
-    <div style="flex:2; border-right:1px solid #000; padding:8px;"><?php echo $p['description']; ?></div>
+
+<?php foreach ($products as $p) { ?>
+<div style="display:flex; width:100%; border:1px solid #000; border-top:none; font-family:Arial; text-align:center;">
+    <div style="flex:0.8; border-right:1px solid #000; padding:8px;"><?php echo $p['qty']; ?></div>
+    <div style="flex:2; border-right:1px solid #000; padding:8px; text-align:left;"><?php echo $p['description']; ?></div>
+    
+    <div style="flex:1; border-right:1px solid #000; padding:8px;"><?php echo $p['lot_no']; ?></div>
+    <div style="flex:1; border-right:1px solid #000; padding:8px;"><?php echo $p['pr_no']; ?></div>
+    <div style="flex:1; border-right:1px solid #000; padding:8px;"><?php echo $p['pm_no']; ?></div>
     <div style="flex:1; border-right:1px solid #000; padding:8px;"><?php echo $p['actual_wt']; ?></div>
     <div style="flex:1; border-right:1px solid #000; padding:8px;"><?php echo $p['charge_wt']; ?></div>
     <div style="flex:1; border-right:1px solid #000; padding:8px;"><?php echo $p['unit']; ?></div>
     <div style="flex:1; border-right:1px solid #000; padding:8px;"><?php echo $p['rate']; ?></div>
-    <div style="flex:1; border-right:1px solid #000; padding:8px;"><?php echo $data['freight']; ?></div>
+    <div style="flex:1; padding:8px;"><?php echo $data['freight']; ?></div>
+</div>
 <?php } ?>
-    </div>
 
 <div style="display:flex;  width:100%; font-size:12px;">
 
@@ -389,6 +467,8 @@ while ($row = mysqli_fetch_assoc($resInvoice)) {
     </div>
 
 
+    <!-- ================= COLUMN 2: DIMENSIONS ================= -->
+    
     <!-- ================= COLUMN 2: DIMENSIONS ================= -->
     <div style="width:40%; border:1px solid #000;">
 
@@ -463,23 +543,27 @@ while ($row = mysqli_fetch_assoc($resInvoice)) {
         </div>
 
         <!-- COMBINED BOX (DIMENSIONS + CHARGES WIDTH) -->
-        <div style="width:100%; border:1px solid #000; height:80px;">
+        <div style="width:100%; border:1px solid #000; height:90px;">
 
             <div style="padding:5px;">
                 <!-- You can add content here -->
 
-                <div><b>If POD is not received within 30 days of Material Delivery Date, <span style="margin-left: 400px;"> Signature Of Booking Cleaerk</span>
-                    <br> Rs. 50 per day is charged as penalty.</b></div>
+                <div>If POD is not received within 30 days of Material Delivery Date, <span style="margin-left: 400px;"> Signature Of Booking Cleaerk</span>
+                     Rs. 50 per day is charged as penalty.</div>
                 <div><b>No responsibility For Leakage & Breakage</b></div><br>
                 <div><b>Note : -</b></div>
 
             </div>
-
+ 
         </div>
-
+ 
     </div>
 
 </div>
+
 </div>
+    <?php
+}
+?>
 </body>
 </html>
