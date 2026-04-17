@@ -180,13 +180,12 @@ while ($row = mysqli_fetch_assoc($resInvoice)) {
         th, td { padding:5px; text-align:left; }
         @page {size: A4 landscape;margin: 5mm;/* adjust as needed */}
         * {box-sizing: border-box;}
-        .page {width: 210mm;height: 297mm;page-break-after: always;}
+        .page {width: 100%;page-break-after: always;break-after: page;}
          /* Avoid breaking inside important sections */
-
     </style>
 </head>
 <body>
-    <div class="page">
+
 <?php
 $copies = ['CONSIGNOR COPY', 'CONSIGNEE COPY', 'DRIVER COPY', 'OFFICE COPY'];
 
@@ -199,7 +198,7 @@ foreach ($copies as $copyTitle) {
             </table>
     </div> -->
     
-
+<div class="page">
 
 <!-- ================= FIRM HEADER ================= -->
 
@@ -568,10 +567,10 @@ foreach ($copies as $copyTitle) {
 </div>
 
 </div>
-
+</div>
     <?php
 }
 ?>
-</div>
+
 </body>
 </html>
