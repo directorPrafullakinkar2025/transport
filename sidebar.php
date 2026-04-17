@@ -266,7 +266,7 @@ td {
  <div class="menu">
         <h5>MAIN NAVIGATION</h5>
   
-        <li><a href="firm_creation.php">Firm Creation</a></li>
+        <li><span class="menu-toggle"><a href="firm_creation.php">Firm Creation</a></span></li>
 
 </div>
 <div class="menu">
