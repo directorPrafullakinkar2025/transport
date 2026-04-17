@@ -263,11 +263,15 @@ td {
     
 
 
- <div class="menu">
-        <h5>MAIN NAVIGATION</h5>
-  
-        <li><span class="menu-toggle"><a href="firm_creation.php">Firm Creation</a></span></li>
+<div class="menu">
+    <h5>MAIN NAVIGATION</h5>
 
+    <div class="submenu">
+        <span class="menu-toggle">Firm Creation</span>
+        <ul class="submenu-list">
+            <li><a href="firm_creation.php">Add New Firm</a></li>
+            </ul>
+    </div>
 </div>
 <div class="menu">
 
