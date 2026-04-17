@@ -167,7 +167,7 @@ textarea:not(:focus) {
 
 /* ================= BUTTONS ================= */
 button {
-    padding: 9px 16px;
+    padding: 9px 9px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -335,7 +335,7 @@ td {
 <!-- following code is for show button , change into dropdown Firm Field -->
 <button class="btn btn-show" onclick="showFirmDropdown()">👁 Show</button>
 </div>
-
+<br>
 <!-- ================= FORM ================= -->
 <div class="form-box">
 <form method="post" action="in_firms.php" enctype="multipart/form-data">
