@@ -6,19 +6,23 @@ ini_set('display_errors', 1);
 require_once "db.php";
 
 $sql = "SELECT 
-
 COUNT(l.lr_id) as total_trips,
-SUM(f.agent_commission) as total_commission,
-SUM(f.profit) as company_profit
+SUM(f.agent_comm_1) as total_commission,
+SUM(f.net_profit) as company_profit
 
 FROM logistics_profit_analysis l
-
-LEFT JOIN freight_gst_details f ON l.lr_id = f.lr_id
-
-
-ORDER BY total_commission DESC";
+LEFT JOIN freight_gst_details f ON l.lr_id = f.lr_id";
 
 $res = mysqli_query($conn,$sql);
+
+if (!$res) {
+    die("Query Error: " . mysqli_error($conn));
+}
+$row = mysqli_fetch_assoc($res);
+
+echo "Total Trips: " . $row['total_trips'] . "<br>";
+echo "Total Commission: " . $row['total_commission'] . "<br>";
+echo "Company Profit: " . $row['company_profit'];
 ?>
 
 <!DOCTYPE html>
