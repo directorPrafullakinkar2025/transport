@@ -14,7 +14,7 @@ require_once  'city_names.php';
 /* ===== DEFAULT (DESKTOP SAME AS YOURS) ===== */
 .page-container {
     margin-left: 240px;
-    padding: 15px;
+   
     transition: 0.3s;
 }
 
