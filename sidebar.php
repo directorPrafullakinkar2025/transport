@@ -276,7 +276,7 @@ td {
     <span class="menu-toggle">Administration</span>
    
     <ul class="submenu-list">
-<li><a  onclick="window.open('all_report.php', '_blank')">Booking Entry</a></li>
+<li><a  onclick="window.open('all_report.php', '_blank')">Dashboard</a></li>
 
     </ul>
   </div>

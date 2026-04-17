@@ -66,7 +66,7 @@ if (!$result) {
 <head>
 
 <title>Transport Dashboard</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 <style>
 /* --- BASE STYLES --- */
@@ -198,6 +198,7 @@ h2 { color: #333; }
 
 <body>
 
+<?php include 'sidebar.php'; ?>
 <h2>Transport Dashboard</h2>
 
 <div class="dashboard no-print">
