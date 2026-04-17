@@ -37,7 +37,7 @@ header("Expires: 0");
 </head>
 
 <body>
-<?php include 'sidebar.php'; ?>
+
 <div class="page-container">
    <div class="header-box right-text">
         User - <span id="userName">No Firm Selected</span><br>
