@@ -9,7 +9,7 @@ require_once  'city_names.php';
 <html>
 <head>
 <title>Firm Creation</title>
-<link rel="stylesheet" href="/assets/css/layout.css">
+<link rel="stylesheet" href="css/layout.css">
 </head>
 <body>
 
