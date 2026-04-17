@@ -1,6 +1,0 @@
-<div class="box">   
-    
-    <b>From:</b> <?php echo $data['from_city']; ?><br>
-    <b>To:</b> <?php echo $data['to_city']; ?><br>
-    <b>Vehicle:</b> <?php echo $data['vehicle_number']; ?><br>
-</div>
