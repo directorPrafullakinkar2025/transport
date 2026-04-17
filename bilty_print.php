@@ -182,7 +182,7 @@ while ($row = mysqli_fetch_assoc($resInvoice)) {
         * {box-sizing: border-box;}
         .page {width: 210mm;height: 297mm;page-break-after: always;}
          /* Avoid breaking inside important sections */
-    .no-break {page-break-inside: avoid;}
+
     </style>
 </head>
 <body>
@@ -198,7 +198,7 @@ foreach ($copies as $copyTitle) {
             </table>
     </div> -->
     
-    <div class="page-break"></div>
+  
 
 <!-- ================= FIRM HEADER ================= -->
 
