@@ -1,24 +1,40 @@
-
-
 <style>
-/* ================= GLOBAL ADJUSTMENTS ================= */
+/* ================= GLOBAL CONFIG ================= */
 :root {
     --sidebar-width: 240px;
     --sidebar-bg: #1f2a30;
     --topbar-bg: #f68b1f;
 }
 
-/* Ensure the main content shifts when sidebar is present on Desktop */
-body.sidebar-open .page-container {
-    margin-left: var(--sidebar-width);
+body { margin: 0; }
+
+/* ================= DESKTOP (Default) ================= */
+/* Sidebar is always visible and fixed */
+.sidebar {
+    width: var(--sidebar-width);
+    background: var(--sidebar-bg);
+    color: #fff;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1002;
+    overflow-y: auto;
+    padding-top: 20px;
 }
 
+/* Page content always has a margin to account for the sidebar */
 .page-container {
-    transition: margin-left 0.3s ease;
+    margin-left: var(--sidebar-width);
     padding: 20px;
+    transition: margin-left 0.3s ease;
 }
 
-/* ================= TOP BAR ================= */
+/* Hide the toggle icon on desktop */
+#menuIcon {
+    display: none; 
+}
+
 .topbar {
     height: 55px;
     background: var(--topbar-bg);
@@ -26,134 +42,62 @@ body.sidebar-open .page-container {
     display: flex;
     align-items: center;
     padding: 0 20px;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 1001;
+    margin-left: var(--sidebar-width); /* Align topbar with content */
 }
 
-.topbar-left {
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-/* ================= SIDEBAR ================= */
-.sidebar {
-    width: var(--sidebar-width);
-    background: var(--sidebar-bg);
-    color: #fff;
-    height: 100vh;
-    position: fixed;
-    left: calc(-1 * var(--sidebar-width)); /* Hidden by default */
-    top: 0;
-    transition: left 0.3s ease;
-    z-index: 1002;
-    overflow-y: auto;
-    padding-top: 60px; /* Space for topbar */
-}
-
-/* Show Sidebar when active */
-body.sidebar-open .sidebar {
-    left: 0;
-}
-
-.sidebar-header {
-    padding: 15px;
-    border-bottom: 1px solid #333;
-}
-
-.menu {
-    padding: 10px;
-    list-style: none;
-}
-
-.menu h5 {
-    font-size: 11px;
-    color: #888;
-    margin: 15px 0 5px 10px;
-    text-transform: uppercase;
-}
-
-.menu a, .menu-toggle {
-    display: block;
-    padding: 12px 15px;
-    color: #d1d1d1;
-    text-decoration: none;
-    border-radius: 4px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.menu a:hover, .menu-toggle:hover {
-    background: #2f3f46;
-    color: #fff;
-}
-
-/* ================= SUBMENU LOGIC ================= */
-.submenu-list {
-    display: none;
-    list-style: none;
-    padding-left: 15px;
-    background: #182226;
-}
-
-.submenu.active .submenu-list {
-    display: block;
-}
-
-.menu-toggle::after {
-    content: "▶";
-    float: right;
-    font-size: 10px;
-    margin-top: 3px;
-    transition: transform 0.3s;
-}
-
-.submenu.active .menu-toggle::after {
-    transform: rotate(90deg);
-}
-
-/* ================= MOBILE OVERLAY ================= */
-.sidebar-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.5);
-    z-index: 1001;
-}
-
-body.sidebar-open .sidebar-overlay {
-    display: block;
-}
-
-@media (min-width: 769px) {
-    .sidebar-overlay { display: none !important; }
-}
-
+/* ================= MOBILE RESPONSIVE (Max 768px) ================= */
 @media (max-width: 768px) {
-    body.sidebar-open .page-container {
-        margin-left: 0; /* Don't shift content on mobile, just overlay */
+    .sidebar {
+        left: -240px; /* Hide sidebar off-screen */
+        padding-top: 60px;
+    }
+
+    .page-container, .topbar {
+        margin-left: 0; /* Content takes full width */
+    }
+
+    #menuIcon {
+        display: inline-block; /* Show toggle button only on mobile */
+        cursor: pointer;
+        font-size: 20px;
+        margin-right: 15px;
+    }
+
+    /* When toggled open on mobile */
+    body.sidebar-open .sidebar {
+        left: 0;
+    }
+
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 1001;
+    }
+
+    body.sidebar-open .sidebar-overlay {
+        display: block;
     }
 }
+
+/* ... (Keep your existing Menu, Submenu, and Hover CSS here) ... */
 </style>
 
 <div class="topbar">
     <div class="topbar-left">
-        <span id="menuIcon" style="cursor: pointer; font-size: 20px;">☰</span>
-        <span>HOME</span>
+        <span id="menuIcon">☰</span>
+        <span class="brand-name">FIRM SYSTEM</span>
     </div>
     <div class="topbar-right">
-        <span>User: <?= htmlspecialchars($firmName ?? 'Guest') ?></span>
-        <a href="logout.php" style="color:white; text-decoration:none; margin-left:15px;">Logout</a>
+        User: <?= htmlspecialchars($firmName ?? 'Admin') ?>
     </div>
 </div>
 
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
 <div class="sidebar" id="sidebar">
+    </div>
     <ul class="menu">
         <h5>MAIN NAVIGATION</h5>
         <li><a href="dashboard.php">🏠 Dashboard</a></li>
