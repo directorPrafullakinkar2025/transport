@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 15, 2026 at 12:48 PM
+-- Generation Time: Apr 17, 2026 at 08:03 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -195,7 +195,6 @@ CREATE TABLE `lr_entry` (
   `lr_id` varchar(255) NOT NULL,
   `lr_date` date DEFAULT NULL,
   `ref_lr_no` varchar(50) DEFAULT NULL,
-  `pm` varchar(50) DEFAULT NULL,
   `from_city` varchar(150) DEFAULT NULL,
   `to_city` varchar(150) DEFAULT NULL,
   `consignor` varchar(150) DEFAULT NULL,
@@ -216,10 +215,6 @@ CREATE TABLE `lr_entry` (
   `policy_no` varchar(100) DEFAULT NULL,
   `insurance_amount` decimal(12,2) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `lot_no` varchar(50) DEFAULT NULL,
-  `pr_no` varchar(50) DEFAULT NULL,
-  `pm_no` varchar(50) DEFAULT NULL,
-  `agent_name` varchar(100) DEFAULT NULL,
   `bill_to` varchar(100) DEFAULT NULL,
   `account_type` varchar(50) DEFAULT NULL,
   `firm_id` int(11) DEFAULT NULL
@@ -229,12 +224,12 @@ CREATE TABLE `lr_entry` (
 -- Dumping data for table `lr_entry`
 --
 
-INSERT INTO `lr_entry` (`id`, `lr_id`, `lr_date`, `ref_lr_no`, `pm`, `from_city`, `to_city`, `consignor`, `consignee`, `cnsnr_address`, `cnsgne_address`, `cnsnr_gstin`, `cnsgne_gstin`, `billing_branch`, `billed_to`, `vehicle_no`, `owner_name`, `transport_mode`, `transport_remark`, `remarks`, `delivery_at`, `company_name`, `policy_no`, `insurance_amount`, `created_at`, `lot_no`, `pr_no`, `pm_no`, `agent_name`, `bill_to`, `account_type`, `firm_id`) VALUES
-(15, 'LR-2026-0001', '2026-03-06', '1111', '1111', '3', '1', '1', '3', 'H.NO.49, WARD NO 6, DATTATRAY NAGAR, LOHARA ROAD , YAVATMAL', 'DAPAKI ROAD', '18', '11', '1111', '3', '12', '11111', 'By Air', '11111', 'good', 'tiruanantpuream', 'SHREEINFOTECH SOFTWARE DEVELOPMENT PRIVATE LIMITED', '111', 111.00, '2026-03-16 14:49:25', '44432', '423442', '34234', 'cbvb', 'fgdf', 'Consignor', 1),
-(16, 'LR-2026-0001', '2026-03-06', '1111', '1111', '3', '1', '1', '3', 'H.NO.49, WARD NO 6, DATTATRAY NAGAR, LOHARA ROAD , YAVATMAL', 'DAPAKI ROAD', '18', '11', '1111', '3', '12', '11111', 'By Air', '11111', 'good', 'tiruanantpuream', 'SHREEINFOTECH SOFTWARE DEVELOPMENT PRIVATE LIMITED', '111', 111.00, '2026-03-16 14:51:43', '44432', '423442', '34234', 'cbvb', 'fgdf', 'Consignor', 2),
-(17, 'LR-2026-0002', '2026-03-04', '1111', '1111', '5', '1', '1', '3', 'H.NO.49, WARD NO 6, DATTATRAY NAGAR, LOHARA ROAD , YAVATMAL', 'DAPAKI ROAD', '18', '18', 'yavatmal', '1', '12', '11111', 'By Air', '11111', 'good', 'tiruanantpuream', 'SHREEINFOTECH SOFTWARE DEVELOPMENT PRIVATE LIMITED', '54535', 111.00, '2026-03-17 12:00:27', '54353', '5345', '453', '3453', '5345', 'Consignor', 3),
-(18, 'LR-2026-0003', '2026-03-19', '1111', '1111', '1', '5', '1', '3', 'H.NO.49, WARD NO 6, DATTATRAY NAGAR, LOHARA ROAD , YAVATMAL', 'DAPAKI ROAD', '11', '11', '1111', '1', '12', '11111', 'By Air', '11111', 'good', 'tiruanantpuream', 'SHREEINFOTECH SOFTWARE DEVELOPMENT PRIVATE LIMITED', '111', 111.00, '2026-03-20 09:11:17', 'gdfg', 'fgfdg', 'fgfd', 'fgd', 'fgdf', 'Consignor', 5),
-(19, 'LR-2026-0004', '0000-00-00', '1111', '1111', '1', '5', '1', '3', 'Peshwe Plot', 'DAPAKI ROAD', '11', '11', '1111', '1', '12', '', 'By Road', '', '', 'tiruanantpuream', 'SHREEINFOTECH SOFTWARE DEVELOPMENT PRIVATE LIMITED', '', 0.00, '2026-04-03 06:56:52', 'gdfg', 'fgfdg', '', 'fgd', 'fgdf', 'Consignor', NULL);
+INSERT INTO `lr_entry` (`id`, `lr_id`, `lr_date`, `ref_lr_no`, `from_city`, `to_city`, `consignor`, `consignee`, `cnsnr_address`, `cnsgne_address`, `cnsnr_gstin`, `cnsgne_gstin`, `billing_branch`, `billed_to`, `vehicle_no`, `owner_name`, `transport_mode`, `transport_remark`, `remarks`, `delivery_at`, `company_name`, `policy_no`, `insurance_amount`, `created_at`, `bill_to`, `account_type`, `firm_id`) VALUES
+(15, 'LR-2026-0001', '2026-03-06', '1111', '3', '1', '1', '3', 'H.NO.49, WARD NO 6, DATTATRAY NAGAR, LOHARA ROAD , YAVATMAL', 'DAPAKI ROAD', '18', '11', '1111', '3', '12', '11111', 'By Air', '11111', 'good', 'tiruanantpuream', 'SHREEINFOTECH SOFTWARE DEVELOPMENT PRIVATE LIMITED', '111', 111.00, '2026-03-16 14:49:25', 'fgdf', 'Consignor', 1),
+(16, 'LR-2026-0001', '2026-03-06', '1111', '3', '1', '1', '3', 'H.NO.49, WARD NO 6, DATTATRAY NAGAR, LOHARA ROAD , YAVATMAL', 'DAPAKI ROAD', '18', '11', '1111', '3', '12', '11111', 'By Air', '11111', 'good', 'tiruanantpuream', 'SHREEINFOTECH SOFTWARE DEVELOPMENT PRIVATE LIMITED', '111', 111.00, '2026-03-16 14:51:43', 'fgdf', 'Consignor', 2),
+(17, 'LR-2026-0002', '2026-03-04', '1111', '5', '1', '1', '3', 'H.NO.49, WARD NO 6, DATTATRAY NAGAR, LOHARA ROAD , YAVATMAL', 'DAPAKI ROAD', '18', '18', 'yavatmal', '1', '12', '11111', 'By Air', '11111', 'good', 'tiruanantpuream', 'SHREEINFOTECH SOFTWARE DEVELOPMENT PRIVATE LIMITED', '54535', 111.00, '2026-03-17 12:00:27', '5345', 'Consignor', 3),
+(18, 'LR-2026-0003', '2026-03-19', '1111', '1', '5', '1', '3', 'H.NO.49, WARD NO 6, DATTATRAY NAGAR, LOHARA ROAD , YAVATMAL', 'DAPAKI ROAD', '11', '11', '1111', '1', '12', '11111', 'By Air', '11111', 'good', 'tiruanantpuream', 'SHREEINFOTECH SOFTWARE DEVELOPMENT PRIVATE LIMITED', '111', 111.00, '2026-03-20 09:11:17', 'fgdf', 'Consignor', 5),
+(19, 'LR-2026-0004', '0000-00-00', '1111', '1', '5', '1', '3', 'Peshwe Plot', 'DAPAKI ROAD', '11', '11', '1111', '1', '12', '', 'By Road', '', '', 'tiruanantpuream', 'SHREEINFOTECH SOFTWARE DEVELOPMENT PRIVATE LIMITED', '', 0.00, '2026-04-03 06:56:52', 'fgdf', 'Consignor', NULL);
 
 -- --------------------------------------------------------
 
@@ -312,17 +307,21 @@ CREATE TABLE `product_details` (
   `length` decimal(10,2) DEFAULT NULL,
   `width` decimal(10,2) DEFAULT NULL,
   `height` decimal(10,2) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `lot_no` varchar(50) DEFAULT NULL,
+  `pr_no` varchar(50) DEFAULT NULL,
+  `pm_no` varchar(50) DEFAULT NULL,
+  `agent_name` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `product_details`
 --
 
-INSERT INTO `product_details` (`product_id`, `lr_id`, `product_name`, `group_name`, `description`, `qty`, `actual_wt`, `charge_wt`, `unit`, `rate`, `rate_type`, `amount`, `length`, `width`, `height`, `created_at`) VALUES
-(25, 'LR-2026-0001', 'shreetech software', '', 'fgdfggdfgdfgd', 545, 45.00, 45.00, 'cotton bel', 54.00, 'Per Kg', 54.00, 54.00, 54.00, 54.00, '2026-03-16 14:42:24'),
-(29, 'LR-2026-0002', 'shreeinfotech software', '', 'gfhfghgfhf', 34, 43.00, 43.00, 'cotton bel', 43.00, 'Per Kg', 43.00, 43.00, 43.00, 43.00, '2026-03-17 11:59:56'),
-(31, 'LR-2026-0003', 'infotech software', '', 'dfgddfg', 45, 54.00, 54.00, 'cotton bel', 54.00, 'Per Kg', 54.00, 54.00, 54.00, 54.00, '2026-03-20 09:10:37');
+INSERT INTO `product_details` (`product_id`, `lr_id`, `product_name`, `group_name`, `description`, `qty`, `actual_wt`, `charge_wt`, `unit`, `rate`, `rate_type`, `amount`, `length`, `width`, `height`, `created_at`, `lot_no`, `pr_no`, `pm_no`, `agent_name`) VALUES
+(25, 'LR-2026-0001', 'shreetech software', '', 'fgdfggdfgdfgd', 545, 45.00, 45.00, 'cotton bel', 54.00, 'Per Kg', 54.00, 54.00, 54.00, 54.00, '2026-03-16 14:42:24', NULL, NULL, NULL, NULL),
+(29, 'LR-2026-0002', 'shreeinfotech software', '', 'gfhfghgfhf', 34, 43.00, 43.00, 'cotton bel', 43.00, 'Per Kg', 43.00, 43.00, 43.00, 43.00, '2026-03-17 11:59:56', NULL, NULL, NULL, NULL),
+(31, 'LR-2026-0003', 'infotech software', '', 'dfgddfg', 45, 54.00, 54.00, 'cotton bel', 54.00, 'Per Kg', 54.00, 54.00, 54.00, 54.00, '2026-03-20 09:10:37', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
