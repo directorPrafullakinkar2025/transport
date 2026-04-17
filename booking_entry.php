@@ -516,11 +516,11 @@ function calculateNetProfit() {
         onclick="window.open('bilty_print.php?lr_id=' + document.getElementById('shared_lr_dropdown').value, '_blank')">
     📄 Bilty
 </button>
-<button type="button" 
+<!-- <button type="button" 
         onclick="window.open('all_report.php', '_blank')" 
         class="btn btn-show">
     🏠 Dashboard
-</button>
+</button> -->
         <span style="border-left: 1px solid #ccc; height: 25px; margin: 0 5px;"></span>
 
         <select id="shared_lr_dropdown" class="toolbar-select">

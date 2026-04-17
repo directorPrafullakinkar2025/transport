@@ -274,8 +274,9 @@ td {
   <!-- ================= ADMINISTRATION ================= -->
   <div class="submenu">
     <span class="menu-toggle">Administration</span>
+   
     <ul class="submenu-list">
-
+<li><a  onclick="window.open('all_report.php', '_blank')">Booking Entry</a></li>
 
     </ul>
   </div>
@@ -287,7 +288,7 @@ td {
 
      <li><a href="booking_entry.php">Booking Entry</a></li>
 
-   
+   </ul>
 
   </div>
 </div>
