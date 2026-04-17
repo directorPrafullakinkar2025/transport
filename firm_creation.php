@@ -13,7 +13,11 @@ require_once  'city_names.php';
 </head>
 <body>
 
-<div class="page-container" style="margin-left: 240px;">
+<button id="menu-toggle" class="btn" style="display: block; margin: 10px; @media (min-width: 768px) { display: none; }">
+    ☰ Menu
+</button>
+
+<div class="page-container">
 
 <h2>Firm Creation Module</h2>
 
@@ -300,6 +304,13 @@ const stateCities = <?= json_encode($stateCities) ?>;
 <script src="js/city_dropdown.js"></script>
 
 <script src="conn/show/js/firm_name.js"></script>
+<script>
+document.getElementById('menu-toggle').addEventListener('click', function() {
+    // Replace '.sidebar' with the actual class name inside your sidebar.php
+    const sidebar = document.querySelector('.sidebar'); 
+    sidebar.classList.toggle('active');
+});
+</script>
 </body>
 </html>
 
