@@ -132,7 +132,6 @@ require_once  'city_names.php';
 </style>
 </head>
 <body>
-<?php include 'sidebar.php'; ?>
 
 <h2>Firm Creation Module</h2>
 
