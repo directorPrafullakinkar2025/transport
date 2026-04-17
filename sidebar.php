@@ -205,75 +205,42 @@ td {
 }
 
 /* 2. Responsive adjustments */
+/* 1. Ensure the container doesn't force items to stay side-by-side on mobile */
 @media (max-width: 768px) {
     .container {
-        flex-direction: column; /* Stack sidebar and main content */
+        display: block; /* Changes from flex to block */
+        position: relative;
     }
 
     .sidebar {
-        position: fixed;
-        left: -240px; /* Hide sidebar off-screen */
-        transition: 0.3s;
-        z-index: 1000;
-        width: 240px;
-    }
-
-    /* This class is toggled by your JS */
-    .sidebar.open {
-        left: 0;
-    }
-
-    .main {
-        padding: 10px;
-        width: 100%;
-    }
-
-    /* Make Dashboard Tiles stack: 4 columns -> 1 column */
-    .tiles {
-        grid-template-columns: 1fr; 
-    }
-
-    /* Make tables scrollable horizontally */
-    .reminder-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    table {
-        display: block;
-        overflow-x: auto;
-    }
-    @media (max-width: 768px) {
-    .sidebar {
-        position: fixed;
-        top: 55px; /* Starts below the topbar */
-        left: -240px; /* Fully hidden to the left */
+        /* This hides the menu completely */
+        position: fixed; 
+        top: 55px; /* Adjust based on your topbar height */
+        left: -240px; 
         width: 240px;
         height: calc(100vh - 55px);
-        transition: all 0.3s ease-in-out;
-        z-index: 1000;
-        box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+        z-index: 9999; /* Put it on top of everything */
+        transition: 0.3s ease-in-out;
+        box-shadow: 5px 0 15px rgba(0,0,0,0.2);
     }
 
-    /* When the 'open' class is added via JS, slide it in */
+    /* This is the class the JavaScript will add/remove */
     .sidebar.open {
-        left: 0;
+        left: 0 !important;
     }
 
-    /* Prevent the main content from being clickable/visible if desired 
-       when menu is open (Optional Overlay effect) */
     .main {
+        margin-left: 0 !important;
         width: 100%;
-        transition: margin-left 0.3s;
+        padding: 15px;
     }
 }
-}
-
 </style>
 
   
 <!-- ================= TOP BAR ================= -->
 <div class="topbar">
-    <div class="topbar-left" id="menuIcon" style="cursor: pointer;">
+   <div class="topbar-left" id="menuIcon" style="cursor: pointer; padding: 10px;">
         ☰ HOME
     </div>
     <div class="topbar-right">
@@ -326,33 +293,21 @@ td {
 document.addEventListener("DOMContentLoaded", function() {
     const menuIcon = document.getElementById('menuIcon');
     const sidebar = document.getElementById('sidebar');
-    const body = document.querySelector('body');
 
     if (menuIcon && sidebar) {
         menuIcon.addEventListener('click', function(e) {
-            e.stopPropagation(); // Prevents immediate closing
+            // Prevent the click from bubbling up
+            e.stopPropagation();
+            // Toggle the 'open' class on the sidebar
             sidebar.classList.toggle('open');
         });
 
-        // Close sidebar when clicking outside of it
-        document.addEventListener('click', function(event) {
-            const isClickInsideSidebar = sidebar.contains(event.target);
-            const isClickOnMenuIcon = menuIcon.contains(event.target);
-
-            if (!isClickInsideSidebar && !isClickOnMenuIcon && sidebar.classList.contains('open')) {
+        // Close the menu if you click anywhere on the 'main' content
+        document.querySelector('.main').addEventListener('click', function() {
+            if (sidebar.classList.contains('open')) {
                 sidebar.classList.remove('open');
             }
         });
     }
-
-    // Auto-close menu when a link is clicked (Mobile optimization)
-    const navLinks = document.querySelectorAll('.sidebar a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            if (window.innerWidth <= 768) {
-                sidebar.classList.remove('open');
-            }
-        });
-    });
 });
 </script>
