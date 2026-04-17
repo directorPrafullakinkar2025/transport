@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home4/shreeinfotechsof/public_html/transport/
+    - export DEPLOYPATH=/home4/shreeinfotechsof/public_html/transport.shreeinfotechsoft.com 
     - /bin/cp -Rf * $DEPLOYPATH
