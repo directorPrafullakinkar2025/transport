@@ -1,7 +1,7 @@
 <style>
 /* ================= GLOBAL CONFIG ================= */
 :root {
-    --sidebar-width: 200px;
+    --sidebar-width: 100px;
     --sidebar-bg: #1f2a30;
     --topbar-bg: #f68b1f;
     --transition-speed: 0.3s;
@@ -23,19 +23,7 @@ body { margin: 0; font-family: sans-serif; }
     padding-top: 20px;
 }
 
-.topbar {
-    height: 55px;
-    background: var(--topbar-bg);
-    color: #fff;
-    display: flex;
-    align-items: center;
-    padding: 0 20px;
-    position: fixed; /* Keep topbar fixed */
-    top: 0;
-    right: 0;
-    left: var(--sidebar-width); /* Start where sidebar ends */
-    z-index: 1000;
-}
+
 
 .page-container {
     padding: 75px 20px 20px 20px; /* Top padding to clear fixed topbar */
