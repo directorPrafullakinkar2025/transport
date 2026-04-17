@@ -9,163 +9,319 @@ require_once  'city_names.php';
 <head>
 <title>Firm Creation</title>
 <style>
-/* ===== BASE LAYOUT ===== */
-.page-container {
-    margin-left: 240px; /* Adjust based on your sidebar width */
-    padding: 20px;
-    transition: 0.3s;
+ /* ================= GLOBAL RESET ================= */
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
-/* ===== FORM GRID ===== */
+body {
+    margin: 0;
+    background: #f2f5ff;
+}
+.form-box,
+.table-box {
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+/* ================= FIXED TOPBAR ================= */
+.topbar {
+    height: 55px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+/* ================= FIXED SIDEBAR ================= */
+.sidebar {
+    width: 240px;
+    position: fixed;
+    top: 55px;
+    left: 0;
+    bottom: 0;
+    overflow-y: auto;
+    z-index: 900;
+    transition: left 0.3s ease;
+}
+
+/* ================= PAGE CONTENT ================= */
+.page-container {
+    margin-left: 240px;              /* SAME as sidebar width */
+    margin-top: 55px;
+    padding: 20px;
+    width: calc(100% - 240px);       /* SAME as sidebar width */
+    min-height: calc(100vh - 55px);
+    background: #f2f5ff;
+    transition: margin-left 0.3s ease;
+}
+
+/* ================= MAIN TITLE ================= */
+.main h2 {
+    margin: 0 0 15px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* ================= FORM BOX ================= */
+.form-box {
+    background: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+/* ================= DEFAULT GRID (4 COLUMN) ================= */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+/* ================= TWO COLUMN GRID (FOR FIRM CREATION) ================= */
 .grid-2 {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 Columns for Desktop */
-    gap: 15px 20px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px 18px;
 }
 
-/* Ensure labels and inputs stack correctly within grid items */
-.grid-2 > div {
-    display: flex;
-    flex-direction: column;
+/* Full width field (Address etc.) */
+.grid-2 .full {
+    grid-column: span 2;
 }
 
-.grid-2 label {
-    font-weight: bold;
-    margin-bottom: 5px;
+/* ================= FORM HEAD ================= */
+.form-box h4 {
+    margin: 0 0 12px;
     font-size: 13px;
-    color: #333;
+    font-weight: bold;
+    color: #fff;
+    background: #e74c3c;
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
 }
 
-.grid-2 input,
-.grid-2 select {
+/* ================= INPUT ================= */
+label {
+    font-size: 13px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 4px;
+}
+
+input,
+select,
+textarea {
     width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 14px;
+    padding: 7px;
+    font-size: 12px;
+    border: 1px solid #cfd6e4;
+    border-radius: 3px;
 }
 
-/* ===== ACTION BUTTONS ===== */
+/* ================= TEXTBOX CURSOR (CARET) ================= */
+input,
+select,
+textarea {
+    caret-color: #2563eb;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+/* ================= ON FOCUS ================= */
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 2px solid #22c55e;
+    border-color: #22c55e;
+    background-color: #f0fdf4;
+    caret-color: #16a34a;
+}
+
+
+/* ================= LOST FOCUS ================= */
+input:not(:focus),
+select:not(:focus),
+textarea:not(:focus) {
+    border-color: #cfd6e4;
+    background-color: #ffffff;
+    caret-color: #2563eb;
+}
+
+/* ================= SEARCH ================= */
+.search-row {
+    margin-bottom: 10px;
+}
+
+.search-inline {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.search-inline input {
+    width: 250px;
+    max-width: 250px;
+    padding: 8px;
+}
+
+/* ================= BUTTONS ================= */
+button {
+    padding: 9px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+/* Action Buttons */
+.page-actions,
 .action-buttons {
     display: flex;
-    flex-wrap: wrap;
     gap: 8px;
-    margin-bottom: 20px;
+    align-items: center;
+    margin-bottom: 12px;
 }
 
-.btn {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
+.btn-new     { background:#2563eb; } /* Blue */
+.btn-edit    { background:#8cda8c; }  /* comment says Orange */
+.btn-delete  { background:#cab4ec; }  /* comment says Red */
+.btn-show    { background:#0f766e; } /* Dark Teal */
+.btn-print   { background:#15803d; } /* Green */
+.btn-mail    { background:#facc15; color:#000; } /* Yellow */
+.btn-search  { background:#1d4ed8; } /* Dark Blue */
+.btn-save    { background:#16a34a; } /* Green */
+.btn-update  { background:#7c3aed; } /* Purple */
+.btn-verify  { background:#2563eb; } /* Blue */
+/* ================= STRONG ACTION BUTTONS ================= */
+.btn-save,
+.btn-update,
+.btn-new,
+.btn-delete,
+.btn-edit {
+    opacity: 1 !important;
+    filter: none !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
 }
 
-/* Specific colors for your buttons */
-.btn-new { background: #28a745; color: white; }
-.btn-save { background: #007bff; color: white; }
-.btn-update { background: #17a2b8; color: white; }
-.btn-show { background: #6c757d; color: white; }
+/* ================= TABLE ================= */
 
-/* Submit & Search Buttons */
-button[type="submit"], 
-button[type="reset"] {
-    padding: 10px 25px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 10px;
+
+.table-box {
+    background: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
 }
 
-/* ===== UPLOAD BOX ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #eee;
+    padding: 8px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+td {
+    padding: 7px;
+    font-size: 12px;
+    border-bottom: 1px solid #ddd;
+    white-space: nowrap;
+}
+
+/* Table inside form */
+.form-box table th,
+.form-box table td {
+    border: 1px solid #ddd;
+    padding: 6px;
+    font-size: 11px;
+}
+
+.form-box table input,
+.form-box table select {
+    font-size: 11px;
+    padding: 4px;
+}
+
+/* ================= FOOTER ================= */
+.footer {
+    margin-top: 15px;
+    font-size: 11px;
+    color: #666;
+    text-align: center;
+}
+/* ================= upload section css ================= */
 .upload-box {
     border: 2px dashed #aaa;
     padding: 15px;
     text-align: center;
-    background: #fdfdfd;
     cursor: pointer;
+    background: #fafafa;
     position: relative;
-    border-radius: 4px;
 }
 
-.upload-box input[type="file"] {
+.upload-box:hover {
+    border-color: #f68b1f;
+}
+
+.upload-box input {
     position: absolute;
     width: 100%;
     height: 100%;
-    top: 0;
-    left: 0;
     opacity: 0;
     cursor: pointer;
 }
-
-/* ===== TABLE RESPONSIVENESS ===== */
-.table-box {
-    width: 100%;
-    overflow-x: auto; /* Horizontal scroll for mobile */
-    margin-top: 25px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-.table-box table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 700px; /* Prevents columns from becoming too narrow */
-}
-
-.table-box th, 
-.table-box td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-    font-size: 13px;
-}
-
-.table-box th {
-    background-color: #f8f9fa;
-    color: #333;
-}
-
-/* ================= MOBILE RESPONSIVE ================= */
-
-/* For Tablets and below */
-@media (max-width: 992px) {
-    .page-container {
-        margin-left: 0 !important;
-        padding: 15px;
+/* ================= RESPONSIVE ================= */
+@media (max-width: 1200px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
-/* For Mobile Phones */
 @media (max-width: 768px) {
+    .grid,
     .grid-2 {
-        grid-template-columns: 1fr; /* Single column layout */
-        gap: 12px;
-    }
-
-    .action-buttons .btn {
-        flex: 1 1 calc(50% - 10px); /* Buttons take half width on mobile */
-        text-align: center;
-    }
-
-    h2 {
-        font-size: 20px;
+        grid-template-columns: 1fr;
     }
 }
 
-@media (max-width: 480px) {
-    .action-buttons .btn {
-        flex: 1 1 100%; /* Full width buttons on very small screens */
+@media (max-width: 992px) {
+    .sidebar {
+        left: -240px;
     }
-    
-    button[type="submit"], 
-    button[type="reset"] {
+    .page-container {
+        margin-left: 0;
         width: 100%;
     }
 }
+@media (max-width: 480px) {
+    .search-inline {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-inline input {
+        width: 100%;
+        max-width: 100%;
+    }
+}        
 </style>
 </head>
 <body>
