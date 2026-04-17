@@ -182,7 +182,7 @@ button {
 <div class="container">
 
     <!-- LEFT -->
-    <div class="left-panel">
+    <!-- <div class="left-panel">
         <div class="reminder-box">
             <h2>REMINDERS</h2>
 
@@ -199,7 +199,7 @@ button {
                 <span>✔</span><p>PARTY GST VERIFICATION</p>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- RIGHT -->
     <div class="right-panel">
