@@ -291,23 +291,54 @@ td {
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
+    
+    // 1. MOBILE SIDEBAR TOGGLE
     const menuIcon = document.getElementById('menuIcon');
     const sidebar = document.getElementById('sidebar');
 
     if (menuIcon && sidebar) {
         menuIcon.addEventListener('click', function(e) {
-            // Prevent the click from bubbling up
             e.stopPropagation();
-            // Toggle the 'open' class on the sidebar
             sidebar.classList.toggle('open');
         });
 
-        // Close the menu if you click anywhere on the 'main' content
-        document.querySelector('.main').addEventListener('click', function() {
-            if (sidebar.classList.contains('open')) {
+        // Close sidebar if user clicks anywhere else on the main screen (Mobile)
+        document.addEventListener('click', function(e) {
+            if (!sidebar.contains(e.target) && !menuIcon.contains(e.target)) {
                 sidebar.classList.remove('open');
             }
         });
     }
+
+    // 2. SUBMENU ACCORDION LOGIC
+    document.querySelectorAll(".menu-toggle").forEach(toggle => {
+        toggle.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const currentSubmenu = this.parentElement;
+            const parentContainer = currentSubmenu.parentElement;
+
+            // Close other open submenus within the same section
+            parentContainer.querySelectorAll(".submenu").forEach(item => {
+                if (item !== currentSubmenu) {
+                    item.classList.remove("active");
+                }
+            });
+
+            // Toggle the clicked submenu
+            currentSubmenu.classList.toggle("active");
+        });
+    });
+
+    // 3. AUTO-CLOSE SIDEBAR ON LINK CLICK (Mobile Only)
+    document.querySelectorAll('.sidebar a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth <= 768) {
+                sidebar.classList.remove('open');
+            }
+        });
+    });
+
 });
 </script>
