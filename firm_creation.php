@@ -9,7 +9,129 @@ require_once  'city_names.php';
 <html>
 <head>
 <title>Firm Creation</title>
-<link rel="stylesheet" href="/assets/css/layout.css">
+<style>
+
+/* ===== DEFAULT (DESKTOP SAME AS YOURS) ===== */
+.page-container {
+    margin-left: 240px;
+    padding: 15px;
+    transition: 0.3s;
+}
+
+/* ===== FORM GRID (KEEP SAME STRUCTURE) ===== */
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+/* Inputs full width */
+.grid-2 input,
+.grid-2 select {
+    width: 100%;
+    padding: 6px;
+    box-sizing: border-box;
+}
+
+/* ===== BUTTONS ===== */
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.btn {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+/* ===== TABLE ===== */
+.table-box {
+    overflow-x: auto;
+}
+
+.table-box table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-box th,
+.table-box td {
+    border: 1px solid #ccc;
+    padding: 6px;
+    font-size: 13px;
+}
+
+/* ===== UPLOAD BOX ===== */
+.upload-box {
+    border: 1px dashed #aaa;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* ================= MOBILE RESPONSIVE ================= */
+@media (max-width: 768px) {
+
+    /* Sidebar handled via sidebar.php toggle */
+    .page-container {
+        margin-left: 0 !important;
+        padding: 10px;
+    }
+
+    /* Single column form */
+    .grid-2 {
+        grid-template-columns: 1fr;
+    }
+
+    /* Buttons full width */
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    /* Table text smaller */
+    .table-box th,
+    .table-box td {
+        font-size: 12px;
+        padding: 5px;
+    }
+
+    /* Images responsive */
+    #logoPreview,
+    #sealPreview {
+        width: 60px;
+    }
+}
+
+/* ================= EXTRA SMALL DEVICES ================= */
+@media (max-width: 480px) {
+
+    h2 {
+        font-size: 18px;
+    }
+
+    label {
+        font-size: 12px;
+    }
+
+    input, select {
+        font-size: 13px;
+    }
+
+    .btn {
+        font-size: 13px;
+        padding: 7px;
+    }
+}
+
+</style>
 </head>
 <body>
 <div class="page-container" style="margin-left: 240px;">
