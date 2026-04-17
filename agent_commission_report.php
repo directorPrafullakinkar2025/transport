@@ -6,16 +6,16 @@ ini_set('display_errors', 1);
 require_once "db.php";
 
 $sql = "SELECT 
-l.agent_name,
+
 COUNT(l.lr_id) as total_trips,
 SUM(f.agent_commission) as total_commission,
 SUM(f.profit) as company_profit
 
-FROM lr_entry l
+FROM logistics_profit_analysis l
 
 LEFT JOIN freight_gst_details f ON l.lr_id = f.lr_id
 
-GROUP BY l.agent_name
+
 ORDER BY total_commission DESC";
 
 $res = mysqli_query($conn,$sql);
@@ -53,7 +53,7 @@ th{background:#111;color:white;}
 
 <tr>
 
-<td><?php echo $row['agent_name']; ?></td>
+
 
 <td><?php echo $row['total_trips']; ?></td>
 
