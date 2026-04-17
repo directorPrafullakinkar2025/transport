@@ -228,7 +228,7 @@ background:#218838;
     </style> 
 </head>
 <body>
-<?php include 'sidebar.php'; ?>
+
 <div class="page-container">
     <h2>Booking Entry</h2>
 
