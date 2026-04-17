@@ -242,6 +242,30 @@ td {
         display: block;
         overflow-x: auto;
     }
+    @media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 55px; /* Starts below the topbar */
+        left: -240px; /* Fully hidden to the left */
+        width: 240px;
+        height: calc(100vh - 55px);
+        transition: all 0.3s ease-in-out;
+        z-index: 1000;
+        box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+    }
+
+    /* When the 'open' class is added via JS, slide it in */
+    .sidebar.open {
+        left: 0;
+    }
+
+    /* Prevent the main content from being clickable/visible if desired 
+       when menu is open (Optional Overlay effect) */
+    .main {
+        width: 100%;
+        transition: margin-left 0.3s;
+    }
+}
 }
 
 </style>
@@ -250,7 +274,7 @@ td {
 <!-- ================= TOP BAR ================= -->
 <div class="topbar">
     <div class="topbar-left" id="menuIcon" style="cursor: pointer;">
-        HOME ☰
+        ☰ HOME
     </div>
     <div class="topbar-right">
         </div>
@@ -300,54 +324,35 @@ td {
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    
-    // 1. MOBILE SIDEBAR TOGGLE
     const menuIcon = document.getElementById('menuIcon');
     const sidebar = document.getElementById('sidebar');
+    const body = document.querySelector('body');
 
     if (menuIcon && sidebar) {
         menuIcon.addEventListener('click', function(e) {
-            e.stopPropagation();
+            e.stopPropagation(); // Prevents immediate closing
             sidebar.classList.toggle('open');
         });
 
-        // Close sidebar if user clicks anywhere else on the main screen (Mobile)
-        document.addEventListener('click', function(e) {
-            if (!sidebar.contains(e.target) && !menuIcon.contains(e.target)) {
+        // Close sidebar when clicking outside of it
+        document.addEventListener('click', function(event) {
+            const isClickInsideSidebar = sidebar.contains(event.target);
+            const isClickOnMenuIcon = menuIcon.contains(event.target);
+
+            if (!isClickInsideSidebar && !isClickOnMenuIcon && sidebar.classList.contains('open')) {
                 sidebar.classList.remove('open');
             }
         });
     }
 
-    // 2. SUBMENU ACCORDION LOGIC
-    document.querySelectorAll(".menu-toggle").forEach(toggle => {
-        toggle.addEventListener("click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            const currentSubmenu = this.parentElement;
-            const parentContainer = currentSubmenu.parentElement;
-
-            // Close other open submenus within the same section
-            parentContainer.querySelectorAll(".submenu").forEach(item => {
-                if (item !== currentSubmenu) {
-                    item.classList.remove("active");
-                }
-            });
-
-            // Toggle the clicked submenu
-            currentSubmenu.classList.toggle("active");
-        });
-    });
-
-    // 3. AUTO-CLOSE SIDEBAR ON LINK CLICK (Mobile Only)
-    document.querySelectorAll('.sidebar a').forEach(link => {
+    // Auto-close menu when a link is clicked (Mobile optimization)
+    const navLinks = document.querySelectorAll('.sidebar a');
+    navLinks.forEach(link => {
         link.addEventListener('click', () => {
             if (window.innerWidth <= 768) {
                 sidebar.classList.remove('open');
             }
         });
     });
-
 });
 </script>
