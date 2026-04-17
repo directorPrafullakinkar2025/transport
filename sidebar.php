@@ -1,163 +1,348 @@
+
+
 <style>
-/* ================= GLOBAL CONFIG ================= */
-:root {
-    --sidebar-width: 100px;
-    --sidebar-bg: #1f2a30;
-    --topbar-bg: #f68b1f;
-    --transition-speed: 0.3s;
+* { box-sizing: border-box; font-family: Arial, sans-serif; }
+
+body {
+    margin: 0;
+    background: #f2f5ff;
 }
 
-body { margin: 0; font-family: sans-serif; }
-
-/* ================= DESKTOP (Fixed) ================= */
-.sidebar {
-    width: var(--sidebar-width);
-    background: var(--sidebar-bg);
+/* ================= TOP BAR ================= */
+.topbar {
+    height: 55px;
+    background: #f68b1f;
     color: #fff;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 1002;
-    overflow-y: auto;
-    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    justify-content: space-between;
 }
 
-
-
-.page-container {
-    padding: 75px 20px 20px 20px; /* Top padding to clear fixed topbar */
-    margin-left: var(--sidebar-width);
+.topbar-left {
+    font-weight: bold;
 }
 
-#menuIcon { display: none; }
+.topbar-right {
+    font-size: 14px;
+}
 
-/* ================= MOBILE RESPONSIVE (Max 768px) ================= */
+.topbar-right a {
+    color: #fff;
+    margin-left: 15px;
+    text-decoration: none;
+}
+
+/* ================= LAYOUT ================= */
+.container {
+    display: flex;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+    width: 240px;
+    background: #1f2a30;
+    color: #fff;
+    min-height: calc(100vh - 55px);
+}
+
+.sidebar-header {
+    padding: 15px;
+    border-bottom: 1px solid #333;
+}
+
+.sidebar-header h4 {
+    margin: 5px 0;
+}
+
+.menu {
+    padding: 10px;
+}
+
+.menu h5 {
+    font-size: 12px;
+    color: #aaa;
+    margin-bottom: 10px;
+}
+
+.menu a {
+    display: block;
+    padding: 10px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.menu a:hover {
+    background: #2f3f46;
+}
+
+.quick-links a {
+    background: #fff;
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* ================= MAIN CONTENT ================= */
+.main {
+    flex: 1;
+    padding: 20px;
+}
+
+.title {
+    text-align: center;
+    color: #ff6b6b;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* ================= DASHBOARD TILES ================= */
+.tiles {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.tile {
+    background: #fff;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.icon {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: #fff;
+}
+
+.blue { background: #4aa3df; }
+.green { background: #2ecc71; }
+.gray { background: #bdc3c7; }
+.orange { background: #f39c12; }
+.yellow { background: #f1c40f; }
+.purple { background: #8e7cff; }
+
+.tile-text {
+    padding: 15px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* ================= REMINDERS ================= */
+.reminders {
+    background: #fff;
+    margin-top: 25px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.reminder-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.reminders h4 {
+    color: blue;
+    margin-bottom: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #f1c232;
+    padding: 8px;
+    font-size: 13px;
+}
+
+td {
+    padding: 6px;
+    font-size: 13px;
+    border-bottom: 1px solid #ddd;
+}
+/* ================= MENU TOGGLE ================= */
+.submenu-list {
+  display: none;
+  padding-left: 15px;
+}
+
+.submenu.active > .submenu-list {
+  display: block;
+}
+
+.menu-toggle {
+  cursor: pointer;
+  display: block;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.menu-toggle::after {
+  content: " ▶";
+  float: right;
+  font-size: 11px;
+}
+
+.submenu.active > .menu-toggle::after {
+  content: " ▼";
+}
+/* 1. Ensure the container can wrap on mobile */
+.container {
+    display: flex;
+    flex-wrap: nowrap; /* Keep desktop as is */
+}
+
+/* 2. Responsive adjustments */
 @media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Stack sidebar and main content */
+    }
+
     .sidebar {
-        transform: translateX(-100%); /* Move off-screen */
-        transition: transform var(--transition-speed) ease;
+        position: fixed;
+        left: -240px; /* Hide sidebar off-screen */
+        transition: 0.3s;
+        z-index: 1000;
+        width: 240px;
+    }
+
+    /* This class is toggled by your JS */
+    .sidebar.open {
         left: 0;
     }
 
-    .topbar {
-        left: 0; /* Full width on mobile */
+    .main {
+        padding: 10px;
+        width: 100%;
     }
 
-    .page-container {
-        margin-left: 0;
+    /* Make Dashboard Tiles stack: 4 columns -> 1 column */
+    .tiles {
+        grid-template-columns: 1fr; 
     }
 
-    #menuIcon {
-        display: inline-block;
-        cursor: pointer;
-        font-size: 24px;
-        margin-right: 15px;
+    /* Make tables scrollable horizontally */
+    .reminder-grid {
+        grid-template-columns: 1fr;
     }
-
-    /* Open State */
-    body.sidebar-open .sidebar {
-        transform: translateX(0);
-    }
-
-    .sidebar-overlay {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.5);
-        z-index: 1001;
-    }
-
-    body.sidebar-open .sidebar-overlay {
+    
+    table {
         display: block;
+        overflow-x: auto;
     }
 }
 
-/* Basic Submenu Styling (Ensure these exist in your CSS) */
-.submenu-list { display: none; list-style: none; padding-left: 20px; }
-.submenu.active .submenu-list { display: block; }
-.menu-toggle { cursor: pointer; display: block; padding: 10px; }
-.menu { list-style: none; padding: 0; }
-.menu h5 { padding: 10px 20px; opacity: 0.6; font-size: 0.8rem; margin: 0; }
-.menu a { color: white; text-decoration: none; display: block; padding: 10px 20px; }
 </style>
+
+  
+<!-- ================= TOP BAR ================= -->
 <div class="topbar">
-    <div class="topbar-left">
-        <span id="menuIcon">☰</span>
-        <span class="brand-name">FIRM SYSTEM</span>
+    <div class="topbar-left" id="menuIcon" style="cursor: pointer;">
+        HOME ☰
     </div>
     <div class="topbar-right">
-        User: <?= htmlspecialchars($firmName ?? 'Admin') ?>
-    </div>
+        </div>
 </div>
 
-<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="container">
 
+<!-- ================= SIDEBAR ================= -->
 <div class="sidebar" id="sidebar">
-    <ul class="menu">
+    
+
+
+ <div class="menu">
         <h5>MAIN NAVIGATION</h5>
-        <li><a href="dashboard.php">🏠 Dashboard</a></li>
-        <li><a href="firm_creation.php">🏢 Firm Creation</a></li>
+  
+        <li><a href="firm_creation.php">Firm Creation</a></li>
 
-        <h5>MASTER DATA</h5>
-        <div class="submenu">
-            <span class="menu-toggle">⚙️ Administration</span>
-            <ul class="submenu-list">
-                <li><a href="party_master.php">Party Master</a></li>
-                <li><a href="vehicle_master.php">Vehicle Master</a></li>
-                <li><a href="city_master.php">City Master</a></li>
-            </ul>
-        </div>
+</div>
+<div class="menu">
 
-        <h5>WORKFLOW</h5>
-        <div class="submenu">
-            <span class="menu-toggle">📝 Transaction</span>
-            <ul class="submenu-list">
-                <li><a href="booking_entry.php">Booking Entry</a></li>
-                <li><a href="manifest.php">Manifest Entry</a></li>
-            </ul>
-        </div>
+  <!-- ================= ADMINISTRATION ================= -->
+  <div class="submenu">
+    <span class="menu-toggle">Administration</span>
+    <ul class="submenu-list">
+
+
     </ul>
+  </div>
+
+  <!-- ================= TRANSACTION ================= -->
+  <div class="submenu">
+    <span class="menu-toggle">Transaction</span>
+    <ul class="submenu-list">
+
+     <li><a href="booking_entry.php">Booking Entry</a></li>
+
+   
+
+  </div>
+</div>
 </div>
 
-<div class="page-container">
-    </div>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
+    
+    // 1. MOBILE SIDEBAR TOGGLE
     const menuIcon = document.getElementById('menuIcon');
-    const sidebarOverlay = document.getElementById('sidebarOverlay');
-    const body = document.body;
+    const sidebar = document.getElementById('sidebar');
 
-    // Toggle Sidebar
-    function toggleSidebar() {
-        body.classList.toggle('sidebar-open');
-        // Save state
-        const isOpen = body.classList.contains('sidebar-open');
-        localStorage.setItem('sidebar_state', isOpen ? 'open' : 'closed');
+    if (menuIcon && sidebar) {
+        menuIcon.addEventListener('click', function(e) {
+            e.stopPropagation();
+            sidebar.classList.toggle('open');
+        });
+
+        // Close sidebar if user clicks anywhere else on the main screen (Mobile)
+        document.addEventListener('click', function(e) {
+            if (!sidebar.contains(e.target) && !menuIcon.contains(e.target)) {
+                sidebar.classList.remove('open');
+            }
+        });
     }
 
-    if (menuIcon) menuIcon.addEventListener('click', toggleSidebar);
-    if (sidebarOverlay) sidebarOverlay.addEventListener('click', toggleSidebar);
-
-    // Restore state from LocalStorage
-    if (localStorage.getItem('sidebar_state') === 'open' && window.innerWidth > 768) {
-        body.classList.add('sidebar-open');
-    }
-
-    // Submenu Accordion
+    // 2. SUBMENU ACCORDION LOGIC
     document.querySelectorAll(".menu-toggle").forEach(toggle => {
         toggle.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
             const currentSubmenu = this.parentElement;
-            
-            // Close others
-            document.querySelectorAll(".submenu").forEach(item => {
-                if (item !== currentSubmenu) item.classList.remove("active");
+            const parentContainer = currentSubmenu.parentElement;
+
+            // Close other open submenus within the same section
+            parentContainer.querySelectorAll(".submenu").forEach(item => {
+                if (item !== currentSubmenu) {
+                    item.classList.remove("active");
+                }
             });
 
+            // Toggle the clicked submenu
             currentSubmenu.classList.toggle("active");
         });
     });
+
+    // 3. AUTO-CLOSE SIDEBAR ON LINK CLICK (Mobile Only)
+    document.querySelectorAll('.sidebar a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth <= 768) {
+                sidebar.classList.remove('open');
+            }
+        });
+    });
+
 });
 </script>
-
-  
