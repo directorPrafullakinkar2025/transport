@@ -373,11 +373,8 @@ foreach ($copies as $copyTitle) {
 <div style="font-size:12px; font-weight:bold; line-height:1.2;">
 
     <div>
-        Vehicle No. : <?php echo $data['vehicle_number']; ?>
-    </div>
-
-    <div>
-        Vehicle Type :
+    <span> Vehicle No. : <?php echo $data['vehicle_number']; ?></span>
+    <span style="margin-left:120px;">Vehicle Type :</span>
     </div>
 
     <hr>
