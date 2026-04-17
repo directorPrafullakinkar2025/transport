@@ -125,7 +125,7 @@ require_once  'city_names.php';
 
     .btn {
         font-size: 13px;
-        padding: 7px;
+        padding: 6px;
     }
 }
 
