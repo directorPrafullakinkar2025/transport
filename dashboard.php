@@ -47,7 +47,7 @@ header("Expires: 0");
 <!-- ================= MAIN ================= -->
 <div class="main">
 
-    <div class="title">Transport Software Training Video</div>
+    <!-- <div class="title">Transport Software Training Video</div>
 
     <div class="tiles">
         <div class="tile"><div class="icon blue">★</div><div class="tile-text">BOOKING</div></div>
@@ -64,7 +64,7 @@ header("Expires: 0");
         <div class="tile"><div class="icon orange">⬇</div><div class="tile-text">PAYMENT</div></div>
         <div class="tile"><div class="icon gray"></div><div class="tile-text">BILL (PART TRUCK)</div></div>
         <div class="tile"><div class="icon gray"></div><div class="tile-text">BILL (FULL TRUCK)</div></div>
-    </div>
+    </div> -->
 
     <!-- ================= REMINDERS ================= -->
     <div class="reminders">
