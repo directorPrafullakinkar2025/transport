@@ -180,7 +180,9 @@ while ($row = mysqli_fetch_assoc($resInvoice)) {
         th, td { padding:5px; text-align:left; }
         @page {size: A4 landscape;margin: 5mm;/* adjust as needed */}
         * {box-sizing: border-box;}
-        .page {width: 210mm;height: 297mm;}
+        .page {width: 210mm;height: 297mm;page-break-after: always;}
+         /* Avoid breaking inside important sections */
+    .no-break {page-break-inside: avoid;}
     </style>
 </head>
 <body>
