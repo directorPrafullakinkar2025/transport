@@ -13,8 +13,7 @@ require_once  'city_names.php';
 
 /* ===== DEFAULT (DESKTOP SAME AS YOURS) ===== */
 .page-container {
-    margin-left: 240px;
-   
+    margin-left: 200px;
     transition: 0.3s;
 }
 
@@ -134,7 +133,7 @@ require_once  'city_names.php';
 </style>
 </head>
 <body>
-<div class="page-container" style="margin-left: 240px;">
+<?php include 'sidebar.php'; ?>
 
 <h2>Firm Creation Module</h2>
 
