@@ -10,51 +10,30 @@ require_once  'city_names.php';
 <title>Firm Creation</title>
 <style>
 /* ===== BASE LAYOUT ===== */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f7f6;
-}
-
 .page-container {
-    margin-left: 240px; /* Sidebar width */
+    margin-left: 240px; /* Adjust based on your sidebar width */
     padding: 20px;
     transition: 0.3s;
-    min-height: 100vh;
 }
 
-h2 {
-    color: #333;
-    border-bottom: 2px solid #ccc;
-    padding-bottom: 10px;
-}
-
-/* ===== FORM GRID STRUCTURE ===== */
-.form-box {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-}
-
+/* ===== FORM GRID ===== */
 .grid-2 {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Default 2 columns */
-    gap: 15px 25px; /* Vertical and Horizontal gap */
+    grid-template-columns: repeat(2, 1fr); /* 2 Columns for Desktop */
+    gap: 15px 20px;
 }
 
-.grid-2 div {
+/* Ensure labels and inputs stack correctly within grid items */
+.grid-2 > div {
     display: flex;
     flex-direction: column;
 }
 
 .grid-2 label {
     font-weight: bold;
-    font-size: 13px;
     margin-bottom: 5px;
-    color: #555;
+    font-size: 13px;
+    color: #333;
 }
 
 .grid-2 input,
@@ -67,105 +46,124 @@ h2 {
     font-size: 14px;
 }
 
-/* ===== BUTTONS ===== */
+/* ===== ACTION BUTTONS ===== */
 .action-buttons {
     display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
     flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
 }
 
 .btn {
-    padding: 10px 16px;
-    font-size: 14px;
+    padding: 8px 16px;
     border: none;
-    cursor: pointer;
     border-radius: 4px;
-    font-weight: bold;
-    transition: background 0.2s;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
 }
 
+/* Specific colors for your buttons */
 .btn-new { background: #28a745; color: white; }
 .btn-save { background: #007bff; color: white; }
 .btn-update { background: #17a2b8; color: white; }
 .btn-show { background: #6c757d; color: white; }
 
-/* ===== TABLE & UPLOAD ===== */
+/* Submit & Search Buttons */
+button[type="submit"], 
+button[type="reset"] {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* ===== UPLOAD BOX ===== */
+.upload-box {
+    border: 2px dashed #aaa;
+    padding: 15px;
+    text-align: center;
+    background: #fdfdfd;
+    cursor: pointer;
+    position: relative;
+    border-radius: 4px;
+}
+
+.upload-box input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* ===== TABLE RESPONSIVENESS ===== */
 .table-box {
     width: 100%;
-    overflow-x: auto; /* Enables horizontal scroll for mobile */
-    background: white;
-    border-radius: 8px;
+    overflow-x: auto; /* Horizontal scroll for mobile */
+    margin-top: 25px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
 .table-box table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 800px; /* Ensures table doesn't squish too much */
+    min-width: 700px; /* Prevents columns from becoming too narrow */
 }
 
-.table-box th, .table-box td {
-    border: 1px solid #ddd;
+.table-box th, 
+.table-box td {
     padding: 10px;
     text-align: left;
+    border-bottom: 1px solid #eee;
     font-size: 13px;
 }
 
-.table-box th { background-color: #f8f9fa; }
-
-.upload-box {
-    border: 2px dashed #bbb;
-    padding: 15px;
-    text-align: center;
-    background: #fafafa;
-    border-radius: 5px;
+.table-box th {
+    background-color: #f8f9fa;
+    color: #333;
 }
 
-/* ================= RESPONSIVE MEDIA QUERIES ================= */
+/* ================= MOBILE RESPONSIVE ================= */
 
-/* Tablets (up to 992px) */
+/* For Tablets and below */
 @media (max-width: 992px) {
     .page-container {
-        margin-left: 0; /* Sidebar usually collapses to hamburger here */
+        margin-left: 0 !important;
         padding: 15px;
     }
 }
 
-/* Mobile Devices (up to 768px) */
+/* For Mobile Phones */
 @media (max-width: 768px) {
     .grid-2 {
-        grid-template-columns: 1fr; /* Stack inputs vertically */
-        gap: 10px;
+        grid-template-columns: 1fr; /* Single column layout */
+        gap: 12px;
     }
 
-    .action-buttons {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
-    .btn {
-        flex: 1 1 45%; /* Buttons take half width on small screens */
+    .action-buttons .btn {
+        flex: 1 1 calc(50% - 10px); /* Buttons take half width on mobile */
         text-align: center;
     }
 
-    .table-box th, .table-box td {
-        font-size: 12px;
-        padding: 8px;
+    h2 {
+        font-size: 20px;
     }
 }
 
-/* Very Small Devices (Phones up to 480px) */
 @media (max-width: 480px) {
-    .btn {
-        flex: 1 1 100%; /* Buttons stack full width */
+    .action-buttons .btn {
+        flex: 1 1 100%; /* Full width buttons on very small screens */
     }
-
-    .form-box {
-        padding: 10px;
-    }
-
-    h2 {
-        font-size: 1.2rem;
+    
+    button[type="submit"], 
+    button[type="reset"] {
+        width: 100%;
     }
 }
 </style>
