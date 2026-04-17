@@ -513,7 +513,7 @@ function calculateNetProfit() {
         <button type="submit" class="btn save-btn" name="save_lr">💾 Save</button>
 
 <button type="button" class="btn print-btn" 
-        onclick="window.open('bilty_print1.php?lr_id=' + document.getElementById('shared_lr_dropdown').value, '_blank')">
+        onclick="window.open('bilty_print.php?lr_id=' + document.getElementById('shared_lr_dropdown').value, '_blank')">
     📄 Bilty
 </button>
 <button type="button" 
@@ -584,7 +584,7 @@ function calculateNetProfit() {
 <script>
 function goToPrint(lr_id) {
     if (lr_id !== "") {
-        window.location.href = "bilty_print1.php?lr_id=" + lr_id;
+        window.location.href = "bilty_print.php?lr_id=" + lr_id;
     }
 }
 </script>
@@ -958,7 +958,7 @@ function printFromDropdown() {
         alert("Please select an LR first.");
         return;
     }
-    window.open(`bilty_print1.php?lr_id=${lrId}&type=${copyType}`, '_blank');
+    window.open(`bilty_print.php?lr_id=${lrId}&type=${copyType}`, '_blank');
 }
 </script>
 
@@ -1111,8 +1111,8 @@ function sendWhatsAppLR() {
     }
 
     // 5. Construct the message and URL
-    // Using bilty_print1.php as per your 'Print' button logic
-    const printUrl = window.location.origin + "/bilty_print1.php?lr_id=" + lrId + "&type=" + copyType;
+    // Using bilty_print.php as per your 'Print' button logic
+    const printUrl = window.location.origin + "/bilty_print.php?lr_id=" + lrId + "&type=" + copyType;
 
     const message = `${printUrl}`;
 
