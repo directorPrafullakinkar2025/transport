@@ -1,7 +1,7 @@
 <style>
 /* ================= GLOBAL CONFIG ================= */
 :root {
-    --sidebar-width: 240px;
+    --sidebar-width: 200px;
     --sidebar-bg: #1f2a30;
     --topbar-bg: #f68b1f;
     --transition-speed: 0.3s;
