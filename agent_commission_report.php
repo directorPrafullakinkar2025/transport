@@ -7,7 +7,7 @@ require_once "db.php";
 
 $sql = "SELECT 
 COUNT(lr_id) as total_trips,
-SUM(net_profit) as company_profit
+SUM(net_profit) as company_profit,
 SUM(agent_comm_1 + agent_comm_2) as total_commission
 FROM logistics_profit_analysis";
 
