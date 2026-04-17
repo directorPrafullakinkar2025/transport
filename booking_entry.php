@@ -1,7 +1,6 @@
 <?php
 session_start();
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+
 require_once 'db.php';
 $bilty_id="";
 /* =========================================================
@@ -229,7 +228,7 @@ background:#218838;
     </style> 
 </head>
 <body>
-
+<?php include 'sidebar.php'; ?>
 <div class="page-container">
     <h2>Booking Entry</h2>
 
