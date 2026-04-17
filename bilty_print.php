@@ -178,7 +178,7 @@ while ($row = mysqli_fetch_assoc($resInvoice)) {
         table { width:100%; border-collapse: collapse; }
         table, th, td { border:1px solid #000; }
         th, td { padding:5px; text-align:left; }
-        @page {size: A4;margin: 5mm; /* adjust as needed */}
+        @page {size: A4 landscape;margin: 5mm;/* adjust as needed */}
         * {box-sizing: border-box;}
         .page {width: 210mm;height: 297mm;}
     </style>
