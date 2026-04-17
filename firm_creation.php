@@ -9,126 +9,165 @@ require_once  'city_names.php';
 <head>
 <title>Firm Creation</title>
 <style>
-
-/* ===== DEFAULT (DESKTOP SAME AS YOURS) ===== */
-.page-container {
-    margin-left: 240px;
-    transition: 0.3s;
+/* ===== BASE LAYOUT ===== */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6;
 }
 
-/* ===== FORM GRID (KEEP SAME STRUCTURE) ===== */
+.page-container {
+    margin-left: 240px; /* Sidebar width */
+    padding: 20px;
+    transition: 0.3s;
+    min-height: 100vh;
+}
+
+h2 {
+    color: #333;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 10px;
+}
+
+/* ===== FORM GRID STRUCTURE ===== */
+.form-box {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
 .grid-2 {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(2, 1fr); /* Default 2 columns */
+    gap: 15px 25px; /* Vertical and Horizontal gap */
 }
 
-/* Inputs full width */
+.grid-2 div {
+    display: flex;
+    flex-direction: column;
+}
+
+.grid-2 label {
+    font-weight: bold;
+    font-size: 13px;
+    margin-bottom: 5px;
+    color: #555;
+}
+
 .grid-2 input,
 .grid-2 select {
     width: 100%;
-    padding: 6px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
     box-sizing: border-box;
+    font-size: 14px;
 }
 
 /* ===== BUTTONS ===== */
 .action-buttons {
     display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
     flex-wrap: wrap;
-    gap: 8px;
 }
 
 .btn {
-    padding: 8px 12px;
+    padding: 10px 16px;
     font-size: 14px;
     border: none;
     cursor: pointer;
     border-radius: 4px;
+    font-weight: bold;
+    transition: background 0.2s;
 }
 
-/* ===== TABLE ===== */
+.btn-new { background: #28a745; color: white; }
+.btn-save { background: #007bff; color: white; }
+.btn-update { background: #17a2b8; color: white; }
+.btn-show { background: #6c757d; color: white; }
+
+/* ===== TABLE & UPLOAD ===== */
 .table-box {
-    overflow-x: auto;
+    width: 100%;
+    overflow-x: auto; /* Enables horizontal scroll for mobile */
+    background: white;
+    border-radius: 8px;
 }
 
 .table-box table {
     width: 100%;
     border-collapse: collapse;
+    min-width: 800px; /* Ensures table doesn't squish too much */
 }
 
-.table-box th,
-.table-box td {
-    border: 1px solid #ccc;
-    padding: 6px;
+.table-box th, .table-box td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
     font-size: 13px;
 }
 
-/* ===== UPLOAD BOX ===== */
+.table-box th { background-color: #f8f9fa; }
+
 .upload-box {
-    border: 1px dashed #aaa;
-    padding: 10px;
+    border: 2px dashed #bbb;
+    padding: 15px;
     text-align: center;
-    cursor: pointer;
+    background: #fafafa;
+    border-radius: 5px;
 }
 
-/* ================= MOBILE RESPONSIVE ================= */
-@media (max-width: 768px) {
+/* ================= RESPONSIVE MEDIA QUERIES ================= */
 
-    /* Sidebar handled via sidebar.php toggle */
+/* Tablets (up to 992px) */
+@media (max-width: 992px) {
     .page-container {
-        margin-left: 0 !important;
+        margin-left: 0; /* Sidebar usually collapses to hamburger here */
+        padding: 15px;
+    }
+}
+
+/* Mobile Devices (up to 768px) */
+@media (max-width: 768px) {
+    .grid-2 {
+        grid-template-columns: 1fr; /* Stack inputs vertically */
+        gap: 10px;
+    }
+
+    .action-buttons {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .btn {
+        flex: 1 1 45%; /* Buttons take half width on small screens */
+        text-align: center;
+    }
+
+    .table-box th, .table-box td {
+        font-size: 12px;
+        padding: 8px;
+    }
+}
+
+/* Very Small Devices (Phones up to 480px) */
+@media (max-width: 480px) {
+    .btn {
+        flex: 1 1 100%; /* Buttons stack full width */
+    }
+
+    .form-box {
         padding: 10px;
     }
 
-    /* Single column form */
-    .grid-2 {
-        grid-template-columns: 1fr;
-    }
-
-    /* Buttons full width */
-    .action-buttons {
-        flex-direction: column;
-    }
-
-    .btn {
-        width: 100%;
-    }
-
-    /* Table text smaller */
-    .table-box th,
-    .table-box td {
-        font-size: 12px;
-        padding: 5px;
-    }
-
-    /* Images responsive */
-    #logoPreview,
-    #sealPreview {
-        width: 60px;
-    }
-}
-
-/* ================= EXTRA SMALL DEVICES ================= */
-@media (max-width: 480px) {
-
     h2 {
-        font-size: 18px;
-    }
-
-    label {
-        font-size: 12px;
-    }
-
-    input, select {
-        font-size: 13px;
-    }
-
-    .btn {
-        font-size: 13px;
-        padding: 6px;
+        font-size: 1.2rem;
     }
 }
-
 </style>
 </head>
 <body>
