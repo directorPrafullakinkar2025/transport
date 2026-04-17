@@ -50,7 +50,7 @@ if ($session_firm_id) {
     }
 }
 
-require_once 'sidebar.php';
+
 
 /* =========================================================
    3. FETCH CITY DATA
@@ -228,7 +228,7 @@ background:#218838;
     </style> 
 </head>
 <body>
-
+<?php include_once "sidebar.php" ?>
 <div class="page-container">
     <h2>Booking Entry</h2>
 
