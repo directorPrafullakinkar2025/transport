@@ -365,7 +365,7 @@ foreach ($copies as $copyTitle) {
 
             <hr>
 
-<div style="font-size:12px; font-weight:bold; line-height:1.0;">
+<div style="font-size:12px; font-weight:bold; line-height:1.2;">
 
     <div>
         Vehicle No. : <?php echo $data['vehicle_number']; ?>
