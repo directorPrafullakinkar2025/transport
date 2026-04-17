@@ -197,7 +197,7 @@ h2 { color: #333; }
 </head>
 
 <body>
-<?php include_once "sidebar.php" ?>
+
 <h2>Transport Dashboard</h2>
 
 <div class="dashboard no-print">
