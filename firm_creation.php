@@ -1,6 +1,5 @@
 
 <?php require_once 'db.php'; 
-require_once 'sidebar.php';
 require_once  'state_names.php';
 require_once  'city_names.php';
 ?>
