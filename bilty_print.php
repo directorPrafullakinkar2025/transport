@@ -186,6 +186,7 @@ while ($row = mysqli_fetch_assoc($resInvoice)) {
     </style>
 </head>
 <body>
+    <div class="page">
 <?php
 $copies = ['CONSIGNOR COPY', 'CONSIGNEE COPY', 'DRIVER COPY', 'OFFICE COPY'];
 
@@ -198,7 +199,7 @@ foreach ($copies as $copyTitle) {
             </table>
     </div> -->
     
-  <div class="page">
+
 
 <!-- ================= FIRM HEADER ================= -->
 
@@ -567,6 +568,7 @@ foreach ($copies as $copyTitle) {
 </div>
 
 </div>
+
     <?php
 }
 ?>
