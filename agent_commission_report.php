@@ -6,18 +6,17 @@ ini_set('display_errors', 1);
 require_once "db.php";
 
 $sql = "SELECT 
-COUNT(l.lr_id) as total_trips,
-SUM(f.agent_comm_1) as total_commission,
-SUM(f.net_profit) as company_profit
-
-FROM logistics_profit_analysis l
-LEFT JOIN freight_gst_details f ON l.lr_id = f.lr_id";
+COUNT(lr_id) as total_trips,
+SUM(net_profit) as company_profit
+SUM(agent_comm_1 + agent_comm_2) as total_commission
+FROM logistics_profit_analysis";
 
 $res = mysqli_query($conn,$sql);
 
 if (!$res) {
     die("Query Error: " . mysqli_error($conn));
 }
+
 $row = mysqli_fetch_assoc($res);
 
 echo "Total Trips: " . $row['total_trips'] . "<br>";
