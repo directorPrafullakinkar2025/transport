@@ -1,6 +1,6 @@
 
 <?php require_once 'db.php'; 
-
+include_once "sidebar.php";
 require_once  'state_names.php';
 require_once  'city_names.php';
 ?>
@@ -12,7 +12,7 @@ require_once  'city_names.php';
 <link rel="stylesheet" href="/assets/css/layout.css">
 </head>
 <body>
-    <?php include_once "sidebar.php" ?>
+
 <div class="page-container" style="margin-left: 240px;">
 
 <h2>Firm Creation Module</h2>
