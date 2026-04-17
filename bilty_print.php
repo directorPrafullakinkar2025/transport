@@ -198,7 +198,7 @@ foreach ($copies as $copyTitle) {
             </table>
     </div> -->
     
-  
+  <div class="page">
 
 <!-- ================= FIRM HEADER ================= -->
 
@@ -570,5 +570,6 @@ foreach ($copies as $copyTitle) {
     <?php
 }
 ?>
+</div>
 </body>
 </html>
