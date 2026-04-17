@@ -4,12 +4,12 @@
     --sidebar-width: 240px;
     --sidebar-bg: #1f2a30;
     --topbar-bg: #f68b1f;
+    --transition-speed: 0.3s;
 }
 
-body { margin: 0; }
+body { margin: 0; font-family: sans-serif; }
 
-/* ================= DESKTOP (Default) ================= */
-/* Sidebar is always visible and fixed */
+/* ================= DESKTOP (Fixed) ================= */
 .sidebar {
     width: var(--sidebar-width);
     background: var(--sidebar-bg);
@@ -23,18 +23,6 @@ body { margin: 0; }
     padding-top: 20px;
 }
 
-/* Page content always has a margin to account for the sidebar */
-.page-container {
-    margin-left: var(--sidebar-width);
-    padding: 20px;
-    transition: margin-left 0.3s ease;
-}
-
-/* Hide the toggle icon on desktop */
-#menuIcon {
-    display: none; 
-}
-
 .topbar {
     height: 55px;
     background: var(--topbar-bg);
@@ -42,30 +30,46 @@ body { margin: 0; }
     display: flex;
     align-items: center;
     padding: 0 20px;
-    margin-left: var(--sidebar-width); /* Align topbar with content */
+    position: fixed; /* Keep topbar fixed */
+    top: 0;
+    right: 0;
+    left: var(--sidebar-width); /* Start where sidebar ends */
+    z-index: 1000;
 }
+
+.page-container {
+    padding: 75px 20px 20px 20px; /* Top padding to clear fixed topbar */
+    margin-left: var(--sidebar-width);
+}
+
+#menuIcon { display: none; }
 
 /* ================= MOBILE RESPONSIVE (Max 768px) ================= */
 @media (max-width: 768px) {
     .sidebar {
-        left: -240px; /* Hide sidebar off-screen */
-        padding-top: 60px;
+        transform: translateX(-100%); /* Move off-screen */
+        transition: transform var(--transition-speed) ease;
+        left: 0;
     }
 
-    .page-container, .topbar {
-        margin-left: 0; /* Content takes full width */
+    .topbar {
+        left: 0; /* Full width on mobile */
+    }
+
+    .page-container {
+        margin-left: 0;
     }
 
     #menuIcon {
-        display: inline-block; /* Show toggle button only on mobile */
+        display: inline-block;
         cursor: pointer;
-        font-size: 20px;
+        font-size: 24px;
         margin-right: 15px;
     }
 
-    /* When toggled open on mobile */
+    /* Open State */
     body.sidebar-open .sidebar {
-        left: 0;
+        transform: translateX(0);
     }
 
     .sidebar-overlay {
@@ -81,9 +85,14 @@ body { margin: 0; }
     }
 }
 
-/* ... (Keep your existing Menu, Submenu, and Hover CSS here) ... */
+/* Basic Submenu Styling (Ensure these exist in your CSS) */
+.submenu-list { display: none; list-style: none; padding-left: 20px; }
+.submenu.active .submenu-list { display: block; }
+.menu-toggle { cursor: pointer; display: block; padding: 10px; }
+.menu { list-style: none; padding: 0; }
+.menu h5 { padding: 10px 20px; opacity: 0.6; font-size: 0.8rem; margin: 0; }
+.menu a { color: white; text-decoration: none; display: block; padding: 10px 20px; }
 </style>
-
 <div class="topbar">
     <div class="topbar-left">
         <span id="menuIcon">☰</span>
@@ -97,7 +106,6 @@ body { margin: 0; }
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
 <div class="sidebar" id="sidebar">
-    </div>
     <ul class="menu">
         <h5>MAIN NAVIGATION</h5>
         <li><a href="dashboard.php">🏠 Dashboard</a></li>
@@ -124,6 +132,8 @@ body { margin: 0; }
     </ul>
 </div>
 
+<div class="page-container">
+    </div>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const menuIcon = document.getElementById('menuIcon');
