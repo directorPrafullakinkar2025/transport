@@ -1,5 +1,6 @@
 
 <?php require_once 'db.php'; 
+require_once 'sidebar.php';
 require_once  'state_names.php';
 require_once  'city_names.php';
 ?>
@@ -8,10 +9,11 @@ require_once  'city_names.php';
 <html>
 <head>
 <title>Firm Creation</title>
-<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="/assets/css/layout.css">
 </head>
 <body>
-<?php include 'sidebar.php' ?>
+<div class="page-container" style="margin-left: 240px;">
+
 <h2>Firm Creation Module</h2>
 
 <div class="action-buttons">
@@ -21,7 +23,7 @@ require_once  'city_names.php';
 <!-- following code is for show button , change into dropdown Firm Field -->
 <button class="btn btn-show" onclick="showFirmDropdown()">👁 Show</button>
 </div>
-<br>
+
 <!-- ================= FORM ================= -->
 <div class="form-box">
 <form method="post" action="in_firms.php" enctype="multipart/form-data">
